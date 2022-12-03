@@ -3,8 +3,9 @@ import { HiOutlineDocumentPlus } from 'react-icons/hi2';
 import { BsGear } from 'react-icons/bs'
 import Sidebar from '../components/sidebar';
 import { Box, Flex, Text } from '@chakra-ui/react';
+import RegistroTramite from '../components/layouts/registro-tramite';
 
-export default function Inicio () {
+export default function Registro () {
     const pages_to_go = [
         {
             "title": "Inicio",
@@ -28,13 +29,9 @@ export default function Inicio () {
         }
     ]
     return (
-        <Flex>
-            <Sidebar options={pages_to_go} />
-            <Box>
-                <Text>
-                    Hola mundo
-                </Text>
-            </Box>
+        <Flex flexDir="row" justifyContent="flex-start">
+            <Sidebar options={pages_to_go}/>
+            <RegistroTramite />
         </Flex>
     )
 }
