@@ -18,6 +18,7 @@ export default function NavItem({item_title, item_link, item_icon}) {
                     borderRadius={10}
                     w="100%"
                     _hover={{ textDecor:"none", bgColor:"rgb(56, 56, 58)", color:"#FFF"}}
+                    href={item_link}
                 >
                     <MenuButton w="100%">
                         <Flex>
