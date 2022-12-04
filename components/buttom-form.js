@@ -6,9 +6,13 @@ export default function ButtomForm (props) {
     const input = getInputProps()
     const checkbox = getCheckboxProps()
   
+    const filterPressed = () => {
+        props.callback(props.text)
+    }
+
     return (
         <Box as='label'>
-            <input {...input} />
+            <input onClick={filterPressed} {...input} />
             <Box
                 {...checkbox}
                 cursor='pointer'
