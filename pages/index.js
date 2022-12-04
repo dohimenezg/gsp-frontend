@@ -1,11 +1,7 @@
-import Inicio from './inicio';
+import Inicio from './inicio'
 
 const Page = () => {
-    
-    return (
-        <Inicio />
-        )
-    }
-    
-    export default Page
-    
+  return <Inicio />
+}
+
+export default Page
