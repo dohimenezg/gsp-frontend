@@ -9,17 +9,19 @@ A continuación se va a dar una guía breve para empezar a trabajar en el desarr
 # Configuración
 
 En primer lugar **clone el repositorio**, para trabajar en un ambiente aislado cree un **ambiente virtual**.
-
-### Ambiente Virtual
-
-```
-  TODO
-```
+Para intalar las dependencias del projecto es necesario que tenga instalado [node js](https://nodejs.org/es/)
 
 ### Instale las dependencias
+Para instalar las dependencias del proyecto, use el comando
 
 ```
-  TODO
+npm install
+```
+
+### Ambiente Virtual
+Para correr el proyecto en modo de desarrollo usar el comando 
+```
+npm run dev
 ```
 
 # Manejo de Versiones
