@@ -4,6 +4,7 @@ import { BsGear } from 'react-icons/bs'
 import Sidebar from '../components/sidebar';
 import { Box, Flex, Text } from '@chakra-ui/react';
 import RegistroTramite from '../components/layouts/registro-tramite';
+import StickyBox from 'react-sticky-box';
 
 export default function Registro () {
     const pages_to_go = [
@@ -29,8 +30,10 @@ export default function Registro () {
         }
     ]
     return (
-        <Flex flexDir="row" justifyContent="flex-start">
-            <Sidebar options={pages_to_go}/>
+        <Flex display="flex" alignItems="flex-start">
+            <StickyBox >
+                <Sidebar options={pages_to_go}/>
+            </StickyBox>
             <RegistroTramite />
         </Flex>
     )

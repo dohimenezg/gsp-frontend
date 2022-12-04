@@ -8,6 +8,7 @@ import {
     Heading, 
     Flex,
     Input,
+    Select
 } from '@chakra-ui/react';
 import ButtomForm from '../buttom-form';
 
@@ -23,15 +24,15 @@ export default function RegistroTramite () {
     const group = getRootProps()
 
     return (
-        <Box bgColor="rgb(20, 20, 30)" w="100%" color="#FFF">
+        <Box minHeight="100vh" minWidth="100vh" bgColor="rgb(20, 20, 30)" w="100%" color="#FFF">
             <Box m={4}>
                 <Heading as="h3" size="lg" fontWeight="light">Registro de Trámites</Heading>
             </Box>
             <Box m={4}>
-                <Flex flexDir="row">
+                <Flex flexDir="row" wrap="wrap">
                     <Flex>
                         <FormControl as="fieldset" p="2px" bgColor="#30303E" borderRadius="5px">
-                            <HStack spacing="2px" {...group}>
+                            <HStack spacing="2px" {...group} wrap="wrap">
                                 {
                                     options.map((value) => {
                                         const radio = getRadioProps({ value })
@@ -58,7 +59,7 @@ export default function RegistroTramite () {
                             <FormLabel fontWeight="light">Información del Trámite</FormLabel>
                             <HStack spacing="30px">
                                 <Input 
-                                    placeholder="Radicación número de ventanilla única"
+                                    placeholder="Radicación Número de Ventanilla Única"
                                     bgColor="rgb(48, 48, 62)" color="rgb(172, 172, 178)"
                                     _placeholder={{color:"rgb(172, 172, 178)"}}
                                     borderColor="rgb(172, 172, 178)"
@@ -66,7 +67,7 @@ export default function RegistroTramite () {
                                     mb="5px"
                                 />
                                 <Input 
-                                    placeholder="Fecha de recepción"
+                                    placeholder="Fecha de Recepción"
                                     bgColor="rgb(48, 48, 62)" color="rgb(172, 172, 178)"
                                     _placeholder={{color:"rgb(172, 172, 178)"}}
                                     borderColor="rgb(172, 172, 178)"
@@ -83,14 +84,16 @@ export default function RegistroTramite () {
                                     mt="5px"
                                     mb="5px"
                                 />
-                                <Input 
-                                    placeholder="Medio de Recepción"
+                                <Select
                                     bgColor="rgb(48, 48, 62)" color="rgb(172, 172, 178)"
                                     _placeholder={{color:"rgb(172, 172, 178)"}}
                                     borderColor="rgb(172, 172, 178)"
                                     mt="5px"
                                     mb="5px"
-                                />
+                                >
+                                    <option value='WE'>Web</option>
+                                    <option value='ES'>Escritorio</option>
+                                </Select>
                             </HStack>
                         </FormControl>
                     </Flex>
