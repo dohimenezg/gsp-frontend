@@ -2,10 +2,12 @@ import { FiHome, FiCompass } from 'react-icons/fi'
 import { HiOutlineDocumentPlus } from 'react-icons/hi2'
 import { BsGear } from 'react-icons/bs'
 import Sidebar from '../components/sidebar'
-import { Box, Flex, Text, Image } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import StickyBox from 'react-sticky-box'
+import SeguimientoTramites from '../components/layouts/seguimiento-tramites'
+import TramiteItem from '../components/tramite-item'
 
-export default function Inicio() {
+export default function Registro() {
   const pages_to_go = [
     {
       title: 'Inicio',
@@ -33,14 +35,7 @@ export default function Inicio() {
       <StickyBox>
         <Sidebar options={pages_to_go} />
       </StickyBox>
-      <Box
-        minHeight="100vh"
-        minWidth="100vh"
-        bgColor="rgb(20, 20, 30)"
-        w="100%"
-      >
-        <Image src="inicio.svg"></Image>
-      </Box>
+      <SeguimientoTramites />
     </Flex>
   )
 }

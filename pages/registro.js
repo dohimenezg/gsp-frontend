@@ -20,7 +20,7 @@ export default function Registro() {
     },
     {
       title: 'Seguimiento',
-      link: '/tramite',
+      link: '/seguimiento',
       icon: FiCompass
     },
     {
