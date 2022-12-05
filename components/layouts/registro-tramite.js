@@ -170,7 +170,8 @@ export default function RegistroTramite() {
                 !direccion_peticionario ||
                 !telefono_peticionario ||
                 !celular_peticionario ||
-                !correo_peticionario
+                !correo_peticionario ||
+                !id_tramitante
               }
             >
               Registrar Trámite
