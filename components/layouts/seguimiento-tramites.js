@@ -173,7 +173,7 @@ export default function SeguimientoTramites() {
                             </Text>
                           </HStack>
                         </Box>
-                        <Box flexDir="row" ml="auto">
+                        <Box flexDir="row" mr="auto">
                           <HStack spacing="10px">
                             <Text as="h2" fontSize="x" fontWeight="normal">
                               Nombre del Peticionario:
