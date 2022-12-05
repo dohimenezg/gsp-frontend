@@ -158,6 +158,20 @@ export default function RegistroTramite() {
               bgColor="rgb(123, 18, 46)"
               onClick={createTramite}
               _hover={{ bgColor: 'rgba(172, 172, 178, 50%)' }}
+              disabled={
+                !numero_ventanilla ||
+                !tipo_tramite ||
+                !asunto_tramite ||
+                !medio_recepcion ||
+                !fecha_recepcion ||
+                !fecha_recepcion ||
+                !nombre_peticionario ||
+                !tipo_peticionario ||
+                !direccion_peticionario ||
+                !telefono_peticionario ||
+                !celular_peticionario ||
+                !correo_peticionario
+              }
             >
               Registrar Trámite
             </Button>
