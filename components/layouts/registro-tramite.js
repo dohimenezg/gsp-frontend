@@ -10,7 +10,7 @@ import {
   Input,
   Select
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ButtomForm from '../buttom-form'
 import axios from 'axios'
 
@@ -20,6 +20,11 @@ const api = axios.create({
 
 export default function RegistroTramite() {
   const options = ['Petición', 'Queja', 'Reclamo', 'Sugerencia', 'Felicitación']
+  const [tramitantes, setTramitantes] = useState([])
+  const [optionsTramitante, setOptionsTramitante] = useState([])
+  const [id_tramitante, set_id_tramitante] = useState(0)
+  const [dependencia_tramitante, set_dependencia_tramitante] =
+    useState('Dependencia')
 
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: 'pqrsf',
@@ -27,6 +32,31 @@ export default function RegistroTramite() {
   })
 
   const group = getRootProps()
+
+  const updateDependencia = value => {
+    set_dependencia_tramitante(
+      tramitantes.find(x => x.id == value).dependencia_tramitante
+    )
+  }
+
+  const fetchData = async () => {
+    let items = []
+    try {
+      await api.get('tramitantes/').then(res => {
+        setTramitantes(res.data.tramitantes)
+        for (let i = 0; i < res.data.tramitantes.length; i++) {
+          items.push(
+            <option key={i} value={res.data.tramitantes[i].id}>
+              {res.data.tramitantes[i].nombre_tramitante}
+            </option>
+          )
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+    setOptionsTramitante(items)
+  }
 
   const [numero_ventanilla, set_numero_ventanilla] = useState('')
   const [tipo_tramite, set_tipo_tramite] = useState('P')
@@ -41,12 +71,12 @@ export default function RegistroTramite() {
   const [celular_peticionario, set_celular_peticionario] = useState('')
   const [correo_peticionario, set_correo_peticionario] = useState('')
 
-
   const updateTipoTramite = datos => {
     set_tipo_tramite(datos)
   }
 
   const createTramite = async () => {
+    let id_tramite = 0
     try {
       let res = await api.post('tramites/', {
         numero_ventanilla,
@@ -62,12 +92,27 @@ export default function RegistroTramite() {
         celular_peticionario,
         correo_peticionario
       })
+      id_tramite = res.data.id
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+    }
+    let obj = {
+      fecha_traslado: fecha_recepcion,
+      id_tramite: id_tramite,
+      id_tramitante: id_tramitante
+    }
+    try {
+      let res = await api.post('traslados/', obj)
       console.log(res)
     } catch (error) {
       console.log(error)
     }
   }
 
+  useEffect(() => {
+    fetchData()
+  }, [])
   return (
     <Box
       minHeight="100vh"
@@ -134,7 +179,7 @@ export default function RegistroTramite() {
                 <Input
                   placeholder="Radicación Número de Ventanilla Única"
                   bgColor="rgb(48, 48, 62)"
-                  color="rgb(172, 172, 178)"
+                  color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
                   mt="5px"
@@ -144,7 +189,7 @@ export default function RegistroTramite() {
                 <Input
                   placeholder="Fecha de Recepción"
                   bgColor="rgb(48, 48, 62)"
-                  color="rgb(172, 172, 178)"
+                  color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
                   mt="5px"
@@ -156,7 +201,7 @@ export default function RegistroTramite() {
                 <Input
                   placeholder="Asunto"
                   bgColor="rgb(48, 48, 62)"
-                  color="rgb(172, 172, 178)"
+                  color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
                   mt="5px"
@@ -173,7 +218,9 @@ export default function RegistroTramite() {
                   mb="5px"
                   onChange={e => set_medio_recepcion(e.target.value)}
                 >
-                  <option disabled value="">--Medio de Recepción--</option>
+                  <option disabled value="">
+                    --Medio de Recepción--
+                  </option>
                   <option value="WE">Web</option>
                   <option value="ES">Escritorio</option>
                 </Select>
@@ -192,7 +239,7 @@ export default function RegistroTramite() {
                 Información del Peticionario
               </FormLabel>
               <HStack spacing="30px">
-              <Select
+                <Select
                   bgColor="rgb(48, 48, 62)"
                   defaultValue=""
                   color="rgb(172, 172, 178)"
@@ -202,7 +249,9 @@ export default function RegistroTramite() {
                   mb="5px"
                   onChange={e => set_tipo_peticionario(e.target.value)}
                 >
-                  <option disabled value="">--Tipo de Peticionario--</option>
+                  <option disabled value="">
+                    --Tipo de Peticionario--
+                  </option>
                   <option value="PRE">Estudiante de Pregrado</option>
                   <option value="POS">Estudiante de Posgrado</option>
                   <option value="EMP">Empleado</option>
@@ -214,7 +263,7 @@ export default function RegistroTramite() {
                 <Input
                   placeholder="Celular"
                   bgColor="rgb(48, 48, 62)"
-                  color="rgb(172, 172, 178)"
+                  color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
                   mt="5px"
@@ -226,7 +275,7 @@ export default function RegistroTramite() {
                 <Input
                   placeholder="Nombre Completo"
                   bgColor="rgb(48, 48, 62)"
-                  color="rgb(172, 172, 178)"
+                  color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
                   mt="5px"
@@ -236,7 +285,7 @@ export default function RegistroTramite() {
                 <Input
                   placeholder="Teléfono"
                   bgColor="rgb(48, 48, 62)"
-                  color="rgb(172, 172, 178)"
+                  color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
                   mt="5px"
@@ -248,7 +297,7 @@ export default function RegistroTramite() {
                 <Input
                   placeholder="Dirección"
                   bgColor="rgb(48, 48, 62)"
-                  color="rgb(172, 172, 178)"
+                  color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
                   mt="5px"
@@ -258,7 +307,7 @@ export default function RegistroTramite() {
                 <Input
                   placeholder="Correo Electrónico"
                   bgColor="rgb(48, 48, 62)"
-                  color="rgb(172, 172, 178)"
+                  color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
                   mt="5px"
@@ -280,23 +329,34 @@ export default function RegistroTramite() {
                 Información del Destinatario
               </FormLabel>
               <Input
-                placeholder="Trasladado a"
-                bgColor="rgb(48, 48, 62)"
-                color="rgb(172, 172, 178)"
-                _placeholder={{ color: 'rgb(172, 172, 178)' }}
-                borderColor="rgb(172, 172, 178)"
-                mt="5px"
-                mb="5px"
-              />
-              <Input
+                disabled
                 placeholder="Dependencia"
+                value={dependencia_tramitante}
                 bgColor="rgb(48, 48, 62)"
-                color="rgb(172, 172, 178)"
+                color="rgb(255, 255, 255)"
                 _placeholder={{ color: 'rgb(172, 172, 178)' }}
                 borderColor="rgb(172, 172, 178)"
                 mt="5px"
                 mb="5px"
               />
+              <Select
+                bgColor="rgb(48, 48, 62)"
+                defaultValue=""
+                color="rgb(172, 172, 178)"
+                _placeholder={{ color: 'rgb(172, 172, 178)' }}
+                borderColor="rgb(172, 172, 178)"
+                mt="5px"
+                mb="5px"
+                onChange={e => {
+                  set_id_tramitante(e.target.value)
+                  updateDependencia(e.target.value)
+                }}
+              >
+                <option disabled value="">
+                  --Trasladado a--
+                </option>
+                {optionsTramitante}
+              </Select>
             </FormControl>
             <FormControl
               p={3}
