@@ -11,16 +11,64 @@ import {
   SliderFilledTrack,
   Tooltip
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+
+const api = axios.create({
+  baseURL: `http://localhost:8000/configs`
+})
 
 export default function ConfiguracionTramites() {
-  const [slider_peticion, set_slider_peticion] = useState(5)
-  const [slider_queja, set_slider_queja] = useState(5)
-  const [slider_reclamo, set_slider_reclamo] = useState(5)
-  const [slider_sugerencia, set_slider_sugerencia] = useState(5)
+  const [slider_peticion, set_slider_peticion] = useState(15)
+  const [slider_queja, set_slider_queja] = useState(15)
+  const [slider_reclamo, set_slider_reclamo] = useState(15)
+  const [slider_sugerencia, set_slider_sugerencia] = useState(15)
   const minimaDuracion = 1
   const maximaDuracion = 15
 
+  const fetchData = async () => {
+    try {
+      await api.get('/').then(res => {
+        set_slider_peticion(res.data.configuraciones[0].tiempo_limite)
+        set_slider_queja(res.data.configuraciones[1].tiempo_limite)
+        set_slider_reclamo(res.data.configuraciones[2].tiempo_limite)
+        set_slider_sugerencia(res.data.configuraciones[3].tiempo_limite)
+      })
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const updateConfiguracion = async () => {
+    let obj_peticion = {
+      'tipo_configuracion': "P",
+      'tiempo_limite': slider_peticion,
+    }
+    let obj_queja = {
+      'tipo_configuracion': "Q",
+      'tiempo_limite': slider_queja,
+    }
+    let obj_reclamo = {
+      'tipo_configuracion': "R",
+      'tiempo_limite': slider_reclamo,
+    }
+    let obj_sugerencia = {
+      'tipo_configuracion': "S",
+      'tiempo_limite': slider_sugerencia,
+    }
+    try {
+      await api.put(`/${1}`, obj_peticion)
+      await api.put(`/${2}`, obj_queja)
+      await api.put(`/${3}`, obj_reclamo)
+      await api.put(`/${4}`, obj_sugerencia)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    fetchData()
+  }, [])
   return (
     <Box
       minHeight="100vh"
@@ -52,6 +100,7 @@ export default function ConfiguracionTramites() {
               m="auto"
               bgColor="rgb(123, 18, 46)"
               _hover={{ bgColor: 'rgba(172, 172, 178, 50%)' }}
+              onClick={updateConfiguracion}
             >
               Guardar Cambios
             </Button>
@@ -75,7 +124,7 @@ export default function ConfiguracionTramites() {
             Peticiones
           </Text>
           <Slider
-            defaultValue={5}
+            defaultValue={15}
             min={minimaDuracion}
             max={maximaDuracion}
             colorScheme="red"
@@ -144,7 +193,7 @@ export default function ConfiguracionTramites() {
             Quejas
           </Text>
           <Slider
-            defaultValue={5}
+            defaultValue={15}
             min={minimaDuracion}
             max={maximaDuracion}
             colorScheme="red"
@@ -212,7 +261,7 @@ export default function ConfiguracionTramites() {
             Reclamos
           </Text>
           <Slider
-            defaultValue={5}
+            defaultValue={15}
             min={minimaDuracion}
             max={maximaDuracion}
             colorScheme="red"
@@ -280,7 +329,7 @@ export default function ConfiguracionTramites() {
             Sugerencias
           </Text>
           <Slider
-            defaultValue={5}
+            defaultValue={15}
             min={minimaDuracion}
             max={maximaDuracion}
             colorScheme="red"
