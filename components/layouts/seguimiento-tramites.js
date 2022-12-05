@@ -5,7 +5,8 @@ import {
   HStack,
   Flex,
   FormControl,
-  useRadioGroup
+  useRadioGroup,
+  Accordion
 } from '@chakra-ui/react'
 import ButtomForm from '../buttom-form'
 import { useState } from 'react'
@@ -82,18 +83,38 @@ export default function SeguimientoTramites() {
         </Flex>
       </Box>
       <Box m={4}>
-        <Flex flexDir="column" wrap="wrap">
-          <Flex>
+        <Flex flexDir="column" wrap="wrap" minW="100%">
+          <Flex w="100%" minW="100%">
             {/* TODO */}
-            <TramiteItem 
-              title={
-                <Text>Hello</Text>
-              }
-              content={
-                <Text>Hello</Text>
-              }
-              color="rgb(20, 20, 30)"
-            />
+            <Accordion w="100%" minW="100%" allowToggle>
+              <TramiteItem 
+                title={
+                  <Text>Hello</Text>
+                }
+                content={
+                  <Text>Hello</Text>
+                }
+                color="rgb(20, 20, 30)"
+              />
+              <TramiteItem 
+                title={
+                  <Text>Hello2</Text>
+                }
+                content={
+                  <Text>Hello2</Text>
+                }
+                color="rgb(20, 20, 30)"
+              />
+              <TramiteItem 
+                title={
+                  <Text>Hello3</Text>
+                }
+                content={
+                  <Text>Hello3</Text>
+                }
+                color="rgb(20, 20, 30)"
+              />
+            </Accordion>
           </Flex>
         </Flex>
       </Box>
