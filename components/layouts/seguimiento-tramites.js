@@ -6,7 +6,9 @@ import {
   Flex,
   FormControl,
   useRadioGroup,
-  Accordion
+  Accordion,
+  Divider,
+  Center
 } from '@chakra-ui/react'
 import ButtomForm from '../buttom-form'
 import { useState } from 'react'
@@ -87,30 +89,177 @@ export default function SeguimientoTramites() {
           <Flex w="100%" minW="100%">
             {/* TODO */}
             <Accordion w="100%" minW="100%" allowToggle>
-              <TramiteItem 
+              <TramiteItem
                 title={
-                  <Text>Hello</Text>
+                  <Flex flexDir="column" ml={4} mr={4} mt={3} mb={3}>
+                    <HStack spacing="30px" mb={2}>
+                      <Heading as="h2" fontSize="x" fontWeight="semibold">
+                        Radicado
+                      </Heading>
+                      <Center height="20px">
+                        <Divider orientation="vertical" />
+                      </Center>
+                      <Heading as="h2" fontSize="x" fontWeight="normal">
+                        Tipo PQRSF
+                      </Heading>
+                    </HStack>
+                    <HStack
+                      spacing="30px"
+                      justifyContent="space-between"
+                      flexDir="row"
+                    >
+                      <Flex flexDir="column">
+                        <Heading as="h2" fontSize="x" fontWeight="normal">
+                          Fecha de recepción
+                        </Heading>
+                        <Text>4/12/2022</Text>
+                      </Flex>
+                      <Flex flexDir="column">
+                        <Heading as="h2" fontSize="x" fontWeight="normal">
+                          Fecha de vencimiento
+                        </Heading>
+                        <Text>4/12/2022</Text>
+                      </Flex>
+                    </HStack>
+                  </Flex>
                 }
                 content={
-                  <Text>Hello</Text>
-                }
-                color="rgb(20, 20, 30)"
-              />
-              <TramiteItem 
-                title={
-                  <Text>Hello2</Text>
-                }
-                content={
-                  <Text>Hello2</Text>
-                }
-                color="rgb(20, 20, 30)"
-              />
-              <TramiteItem 
-                title={
-                  <Text>Hello3</Text>
-                }
-                content={
-                  <Text>Hello3</Text>
+                  <Flex flexDir="column" ml={4} mr={4} mt={3} mb={3}>
+                    <Flex flexDir="row" minW="100%">
+                      <Flex
+                        flexDir="row"
+                        minW="100%"
+                        justifyContent="space-between"
+                      >
+                        <Box flexDir="row" mr="auto">
+                          <HStack spacing="10px">
+                            <Text as="h2" fontSize="x" fontWeight="normal">
+                              Asunto de Trámite:
+                            </Text>
+                            <Text>
+                              Asunto
+                            </Text>
+                          </HStack>
+                          <HStack spacing="10px">
+                            <Text as="h2" fontSize="x" fontWeight="normal">
+                              Medio de Recepción:
+                            </Text>
+                            <Text>
+                              Medio
+                            </Text>
+                          </HStack>
+                          <HStack spacing="10px">
+                            <Text as="h2" fontSize="x" fontWeight="normal">
+                              Número de Oficio:
+                            </Text>
+                            <Text>
+                              Número de oficio
+                            </Text>
+                          </HStack>
+                          <HStack spacing="10px">
+                            <Text as="h2" fontSize="x" fontWeight="normal">
+                              Oficio de Respuesta:
+                            </Text>
+                            <Text>
+                              Oficio de Respuesta
+                            </Text>
+                          </HStack>
+                          <HStack spacing="10px">
+                            <Text as="h2" fontSize="x" fontWeight="normal">
+                              Fecha de Respuesta:
+                            </Text>
+                            <Text>
+                              Fecha de Respuesta
+                            </Text>
+                          </HStack>
+                        </Box>
+                        <Box flexDir="row" ml="auto">
+                          <HStack spacing="10px">
+                            <Text as="h2" fontSize="x" fontWeight="normal">
+                              Nombre del Peticionario:
+                            </Text>
+                            <Text>
+                              Nombre
+                            </Text>
+                          </HStack>
+                          <HStack spacing="10px">
+                            <Text as="h2" fontSize="x" fontWeight="normal">
+                              Tipo del peticionatio:
+                            </Text>
+                            <Text>
+                              Tipo del Peticionario
+                            </Text>
+                          </HStack>
+                          <HStack spacing="10px">
+                            <Text as="h2" fontSize="x" fontWeight="normal">
+                              Dirección del peticionario:
+                            </Text>
+                            <Text>
+                              Dirección
+                            </Text>
+                          </HStack>
+                          <HStack spacing="10px">
+                            <Text as="h2" fontSize="x" fontWeight="normal">
+                              Teléfono del Peticionario:
+                            </Text>
+                            <Text>
+                              Teléfono
+                            </Text>
+                          </HStack>
+                          <HStack spacing="10px">
+                            <Text as="h2" fontSize="x" fontWeight="normal">
+                              Celular del peticionario:
+                            </Text>
+                            <Text>
+                              Celular
+                            </Text>
+                          </HStack>
+                          <HStack spacing="10px">
+                            <Text as="h2" fontSize="x" fontWeight="normal">
+                              Correo del peticionario:
+                            </Text>
+                            <Text>
+                              Correo
+                            </Text>
+                          </HStack>
+                        </Box>
+                      </Flex>
+                      <Flex flexDir="column"></Flex>
+                    </Flex>
+                    <Flex flexDir="column" minW="100%" mt={2} mb={2}>
+                      <Flex>
+                        <Text fontSize="x" fontWeight="semibold">
+                          Trasladado a
+                        </Text>
+                      </Flex>
+                    </Flex>
+                    <Flex flexDir="column" minW="100%">
+                      <HStack spacing="10px">
+                        <Text as="h2" fontSize="x" fontWeight="normal">
+                          Dependencia:
+                        </Text>
+                        <Text>
+                          Dependencia
+                        </Text>
+                      </HStack>
+                      <HStack spacing="10px">
+                        <Text as="h2" fontSize="x" fontWeight="normal">
+                          Tramitante
+                        </Text>
+                        <Text>
+                          Nombre del tramitante
+                        </Text>
+                      </HStack>
+                      <HStack spacing="10px">
+                        <Text as="h2" fontSize="x" fontWeight="normal">
+                          Fecha del traslado:
+                        </Text>
+                        <Text>
+                          Fecha
+                        </Text>
+                      </HStack>
+                    </Flex>
+                  </Flex>
                 }
                 color="rgb(20, 20, 30)"
               />
