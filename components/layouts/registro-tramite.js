@@ -185,7 +185,7 @@ export default function RegistroTramite() {
           <Flex>
             <FormControl
               p={3}
-              borderWidth="2px 2px 2px 2px"
+              borderWidth="2px"
               borderColor="#30303E"
               borderRadius="5px 5px 0px 0px"
             >
@@ -197,8 +197,7 @@ export default function RegistroTramite() {
                   color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
-                  mt="5px"
-                  mb="5px"
+                  my="5px"
                   onChange={e => set_numero_ventanilla(e.target.value)}
                 />
                 <Input
@@ -207,8 +206,7 @@ export default function RegistroTramite() {
                   color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
-                  mt="5px"
-                  mb="5px"
+                  my="5px"
                   onChange={e => set_fecha_recepcion(e.target.value)}
                 />
               </HStack>
@@ -219,8 +217,8 @@ export default function RegistroTramite() {
                   color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
-                  mt="5px"
-                  mb="5px"
+                  my="5px"
+                  w="50%"
                   onChange={e => set_asunto_tramite(e.target.value)}
                 />
                 <Select
@@ -229,8 +227,8 @@ export default function RegistroTramite() {
                   color="rgb(172, 172, 178)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
-                  mt="5px"
-                  mb="5px"
+                  my="5px"
+                  w="50%"
                   onChange={e => set_medio_recepcion(e.target.value)}
                 >
                   <option disabled value="">
@@ -260,8 +258,8 @@ export default function RegistroTramite() {
                   color="rgb(172, 172, 178)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
-                  mt="5px"
-                  mb="5px"
+                  my="5px"
+                  w="50%"
                   onChange={e => set_tipo_peticionario(e.target.value)}
                 >
                   <option disabled value="">
@@ -281,8 +279,8 @@ export default function RegistroTramite() {
                   color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
-                  mt="5px"
-                  mb="5px"
+                  my="5px"
+                  w="50%"
                   onChange={e => set_celular_peticionario(e.target.value)}
                 />
               </HStack>
@@ -293,8 +291,7 @@ export default function RegistroTramite() {
                   color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
-                  mt="5px"
-                  mb="5px"
+                  my="5px"
                   onChange={e => set_nombre_peticionario(e.target.value)}
                 />
                 <Input
@@ -303,8 +300,7 @@ export default function RegistroTramite() {
                   color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
-                  mt="5px"
-                  mb="5px"
+                  my="5px"
                   onChange={e => set_telefono_peticionario(e.target.value)}
                 />
               </HStack>
@@ -315,8 +311,7 @@ export default function RegistroTramite() {
                   color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
-                  mt="5px"
-                  mb="5px"
+                  my="5px"
                   onChange={e => set_direccion_peticionario(e.target.value)}
                 />
                 <Input
@@ -325,8 +320,7 @@ export default function RegistroTramite() {
                   color="rgb(255, 255, 255)"
                   _placeholder={{ color: 'rgb(172, 172, 178)' }}
                   borderColor="rgb(172, 172, 178)"
-                  mt="5px"
-                  mb="5px"
+                  my="5px"
                   onChange={e => set_correo_peticionario(e.target.value)}
                 />
               </HStack>
@@ -351,8 +345,7 @@ export default function RegistroTramite() {
                 color="rgb(255, 255, 255)"
                 _placeholder={{ color: 'rgb(172, 172, 178)' }}
                 borderColor="rgb(172, 172, 178)"
-                mt="5px"
-                mb="5px"
+                my="5px"
               />
               <Select
                 bgColor="rgb(48, 48, 62)"
@@ -360,8 +353,7 @@ export default function RegistroTramite() {
                 color="rgb(172, 172, 178)"
                 _placeholder={{ color: 'rgb(172, 172, 178)' }}
                 borderColor="rgb(172, 172, 178)"
-                mt="5px"
-                mb="5px"
+                my="5px"
                 onChange={e => {
                   set_id_tramitante(e.target.value)
                   updateDependencia(e.target.value)
