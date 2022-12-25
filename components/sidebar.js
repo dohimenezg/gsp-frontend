@@ -69,8 +69,7 @@ export default function Sidebar({ options }) {
             as={BsThreeDotsVertical}
             fontSize="xl"
             color="#FFF"
-            ml={2}
-            mr={2}
+            mx={2}
           />
         </Flex>
       </Flex>
