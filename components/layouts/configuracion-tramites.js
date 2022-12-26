@@ -8,8 +8,7 @@ import {
   SliderTrack,
   SliderMark,
   Slider,
-  SliderFilledTrack,
-  Tooltip
+  SliderFilledTrack
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
@@ -107,12 +106,9 @@ export default function ConfiguracionTramites() {
           </Flex>
         </Flex>
         <Flex
-          pt={5}
-          pb={5}
-          pl={20}
-          pr={20}
-          ml={10}
-          mr={10}
+          py={5}
+          px={20}
+          mx={10}
           flexDir="column"
           borderWidth="2px"
           borderRadius="5px"
@@ -176,12 +172,9 @@ export default function ConfiguracionTramites() {
         </Flex>
 
         <Flex
-          pt={5}
-          pb={5}
-          pl={20}
-          pr={20}
-          ml={10}
-          mr={10}
+          py={5}
+          px={20}
+          mx={10}
           flexDir="column"
           borderWidth="2px"
           borderRadius="5px"
@@ -244,12 +237,9 @@ export default function ConfiguracionTramites() {
           </Text>
         </Flex>
         <Flex
-          pt={5}
-          pb={5}
-          pl={20}
-          pr={20}
-          ml={10}
-          mr={10}
+          py={5}
+          px={20}
+          mx={10}
           flexDir="column"
           borderWidth="2px"
           borderRadius="5px"
@@ -312,12 +302,9 @@ export default function ConfiguracionTramites() {
           </Text>
         </Flex>
         <Flex
-          pt={5}
-          pb={5}
-          pl={20}
-          pr={20}
-          ml={10}
-          mr={10}
+          py={5}
+          px={20}
+          mx={10}
           flexDir="column"
           borderWidth="2px"
           borderRadius="5px"

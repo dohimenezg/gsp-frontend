@@ -17,62 +17,45 @@ function object_list_to_nav_item(options) {
   return nav_items_list
 }
 
-export default function Sidebar({ options }) {
+export default function Sidebar({ top, options, bottom }) {
   const items = object_list_to_nav_item(options)
   return (
     <Flex
       pos="sticky"
       p="0px"
-      h="100vh"
+      minH="100vh"
       margin="0px"
       flex="0 0 250px"
       flexDir="column"
       justifyContent="flex-start"
       bgGradient={['linear(to-br, #700A22 15%, #141189 100%)']}
     >
-      <Flex p="0" flexDir="column" w="100%" alignItems="flex-start">
+      <Flex p="0" flexDir="row" w="100%" alignItems="flex-start">
         <Flex align="center" p={4}>
           <Flex
+            minWidth="80px"
             width="80px"
+            minHeight="80px"
             height="80px"
             backgroundColor="rgb(16, 15, 71)"
-            align="center"
             borderRadius="20px"
           >
             <Image p="7px" src="logo-unicauca.svg" objectFit="contain" />
           </Flex>
-          <Flex flexDir="column">
-            <Heading pl={4} as="h2" size="sm" color="white">
-              Trámites PQRSF
-            </Heading>
-          </Flex>
+          <Heading pl={4} as="h2" size="sm" color="white">
+            Trámites PQRSF
+          </Heading>
         </Flex>
       </Flex>
+
+      {top}
 
       <Flex p="0" flexDir="column" alignContent="flex-start" as="nav">
         {items}
       </Flex>
 
-      <Flex p="0" flexDir="column" w="100%" mt="auto" alignItems="flex-start">
-        <Flex w="100%" align="center" pl={2} pb={2} flexDir="row">
-          {/* TODO: Cambiar para cuando se implemente el login */}
-          <Avatar size="sm" />
-          <Flex w="100%" flexDir="column" color="white">
-            <Text pl={2} fontSize="sm" fontWeight="semibold">
-              Secretaría General
-            </Text>
-            <Text pl={2} fontSize="sm" fontWeight="light">
-              secgral@unicauca.edu.co
-            </Text>
-          </Flex>
-          <Icon
-            as={BsThreeDotsVertical}
-            fontSize="xl"
-            color="#FFF"
-            mx={2}
-          />
-        </Flex>
-      </Flex>
+      {bottom}
+
     </Flex>
   )
 }
