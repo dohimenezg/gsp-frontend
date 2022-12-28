@@ -14,6 +14,8 @@ import ButtomForm from '../buttom-form'
 import { Component, useState } from 'react'
 import TramiteItem from '../tramite-item'
 import axios from 'axios'
+import TramiteItemTitle from '../tramite-item-title'
+import TramiteItemContent from '../tramite-item-content'
 
 const api = axios.create({
   baseURL: `http://localhost:8000/`
@@ -70,8 +72,8 @@ class SeguimientoTramites extends Component {
 
   findDependencia(id) {
     let dep = this.state.traslados.find(x => x.id_tramite == id)
-    if (typeof dep == 'undefined'){
-      dep = ""
+    if (typeof dep == 'undefined') {
+      dep = ''
     } else {
       dep = this.state.traslados.find(x => x.id_tramite == id).id_tramitante
       dep = this.state.tramitantes.find(x => x.id == dep).dependencia_tramitante
@@ -81,8 +83,8 @@ class SeguimientoTramites extends Component {
 
   findTramitante(id) {
     let dep = this.state.traslados.find(x => x.id_tramite == id)
-    if (typeof dep == 'undefined'){
-      dep = ""
+    if (typeof dep == 'undefined') {
+      dep = ''
     } else {
       dep = this.state.traslados.find(x => x.id_tramite == id).id_tramitante
       dep = this.state.tramitantes.find(x => x.id == dep).nombre_tramitante
@@ -92,8 +94,8 @@ class SeguimientoTramites extends Component {
 
   findTraslado(id) {
     let dep = this.state.traslados.find(x => x.id_tramite == id)
-    if (typeof dep == 'undefined'){
-      dep = ""
+    if (typeof dep == 'undefined') {
+      dep = ''
     } else {
       dep = this.state.traslados.find(x => x.id_tramite == id).fecha_traslado
     }
@@ -111,7 +113,7 @@ class SeguimientoTramites extends Component {
 
     const tipos_medios = {
       WE: 'Web',
-      ES: 'Escrito',
+      ES: 'Escrito'
     }
 
     const tipos_peticinarios = {
@@ -121,7 +123,7 @@ class SeguimientoTramites extends Component {
       DOC: 'Docente',
       EGR: 'Egresado',
       JUB: 'Jubilado',
-      EXT: 'Persona Externa',
+      EXT: 'Persona Externa'
     }
     return (
       <Box
@@ -147,149 +149,33 @@ class SeguimientoTramites extends Component {
               {/* TODO */}
               <Accordion w="100%" minW="100%" allowToggle>
                 {this.state.tramites.map(tramite => (
-                  <TramiteItem key={tramite.id}
+                  <TramiteItem
+                    key={tramite.id}
                     title={
-                      <Flex flexDir="column" ml={4} mr={4} mt={3} mb={3}>
-                        <HStack spacing="30px" mb={2}>
-                          <Heading as="h2" fontSize="x" fontWeight="semibold">
-                            Radicado: {tramite.numero_ventanilla}
-                          </Heading>
-                          <Center height="20px">
-                            <Divider orientation="vertical" />
-                          </Center>
-                          <Heading as="h2" fontSize="x" fontWeight="normal">
-                            Tipo PQRSF: {tipos_tramites[tramite.tipo_tramite]}
-                          </Heading>
-                        </HStack>
-                        <HStack
-                          spacing="30px"
-                          justifyContent="space-between"
-                          flexDir="row"
-                        >
-                          <Flex flexDir="column">
-                            <Heading as="h2" fontSize="x" fontWeight="normal">
-                              Fecha de Recepción
-                            </Heading>
-                            <Text>{tramite.fecha_recepcion}</Text>
-                          </Flex>
-                          <Flex flexDir="column">
-                            <Heading as="h2" fontSize="x" fontWeight="normal">
-                              Fecha de Vencimiento
-                            </Heading>
-                            <Text>{tramite.fecha_vencimiento}</Text>
-                          </Flex>
-                        </HStack>
-                      </Flex>
+                      <TramiteItemTitle
+                        numeroVentanilla={tramite.numero_ventanilla}
+                        tipoTramite={tipos_tramites[tramite.tipo_tramite]}
+                        fechaRecepcion={tramite.fecha_recepcion}
+                        fechaVencimiento={tramite.fecha_vencimiento}
+                      />
                     }
                     content={
-                      <Flex flexDir="column" ml={4} mr={4} mt={3} mb={3}>
-                        <Flex flexDir="row" minW="100%">
-                          <Flex
-                            flexDir="row"
-                            minW="100%"
-                            justifyContent="space-between"
-                          >
-                            <Box flexDir="row" mr="auto">
-                              <HStack spacing="10px">
-                                <Text as="h2" fontSize="x" fontWeight="normal">
-                                  Asunto de Trámite:
-                                </Text>
-                                <Text>{tramite.asunto_tramite}</Text>
-                              </HStack>
-                              <HStack spacing="10px">
-                                <Text as="h2" fontSize="x" fontWeight="normal">
-                                  Medio de Recepción:
-                                </Text>
-                                <Text>{tipos_medios[tramite.medio_recepcion]}</Text>
-                              </HStack>
-                              <HStack spacing="10px">
-                                <Text as="h2" fontSize="x" fontWeight="normal">
-                                  Número de Oficio:
-                                </Text>
-                                <Text>{tramite.numero_oficio}</Text>
-                              </HStack>
-                              <HStack spacing="10px">
-                                <Text as="h2" fontSize="x" fontWeight="normal">
-                                  Oficio de Respuesta:
-                                </Text>
-                                <Text>{tramite.oficio_respuesta}</Text>
-                              </HStack>
-                              <HStack spacing="10px">
-                                <Text as="h2" fontSize="x" fontWeight="normal">
-                                  Fecha de Respuesta:
-                                </Text>
-                                <Text>{tramite.fecha_respuesta}</Text>
-                              </HStack>
-                            </Box>
-                            <Box flexDir="row" ml="auto">
-                              <HStack spacing="10px">
-                                <Text as="h2" fontSize="x" fontWeight="normal">
-                                  Nombre del Peticionario:
-                                </Text>
-                                <Text>{tramite.nombre_peticionario}</Text>
-                              </HStack>
-                              <HStack spacing="10px">
-                                <Text as="h2" fontSize="x" fontWeight="normal">
-                                  Tipo del Peticionario:
-                                </Text>
-                                <Text>{tipos_peticinarios[tramite.tipo_peticionario]}</Text>
-                              </HStack>
-                              <HStack spacing="10px">
-                                <Text as="h2" fontSize="x" fontWeight="normal">
-                                  Dirección del Peticionario:
-                                </Text>
-                                <Text>{tramite.direccion_peticionario}</Text>
-                              </HStack>
-                              <HStack spacing="10px">
-                                <Text as="h2" fontSize="x" fontWeight="normal">
-                                  Teléfono del Peticionario:
-                                </Text>
-                                <Text>{tramite.telefono_peticionario}</Text>
-                              </HStack>
-                              <HStack spacing="10px">
-                                <Text as="h2" fontSize="x" fontWeight="normal">
-                                  Celular del Peticionario:
-                                </Text>
-                                <Text>{tramite.celular_peticionario}</Text>
-                              </HStack>
-                              <HStack spacing="10px">
-                                <Text as="h2" fontSize="x" fontWeight="normal">
-                                  Correo del Peticionario:
-                                </Text>
-                                <Text>{tramite.correo_peticionario}</Text>
-                              </HStack>
-                            </Box>
-                          </Flex>
-                          <Flex flexDir="column"></Flex>
-                        </Flex>
-                        <Flex flexDir="column" minW="100%" mt={2} mb={2}>
-                          <Flex>
-                            <Text fontSize="x" fontWeight="semibold">
-                              Trasladado a
-                            </Text>
-                          </Flex>
-                        </Flex>
-                        <Flex flexDir="column" minW="100%">
-                          <HStack spacing="10px">
-                            <Text as="h2" fontSize="x" fontWeight="normal">
-                              Dependencia:
-                            </Text>
-                            <Text>{this.findDependencia(tramite.id)}</Text>
-                          </HStack>
-                          <HStack spacing="10px">
-                            <Text as="h2" fontSize="x" fontWeight="normal">
-                              Tramitante:
-                            </Text>
-                            <Text>{this.findTramitante(tramite.id)}</Text>
-                          </HStack>
-                          <HStack spacing="10px">
-                            <Text as="h2" fontSize="x" fontWeight="normal">
-                              Fecha del Traslado:
-                            </Text>
-                            <Text>{this.findTraslado(tramite.id)}</Text>
-                          </HStack>
-                        </Flex>
-                      </Flex>
+                      <TramiteItemContent
+                        asuntoTramite={tramite.asunto_tramite}
+                        medioRecepcion={tipos_medios[tramite.medio_recepcion]}
+                        numeroOficio={tramite.numero_oficio}
+                        oficioRespuesta={tramite.oficio_respuesta}
+                        fechaRespuesta={tramite.fecha_respuesta}
+                        nombrePeticionario={tramite.nombre_peticionario}
+                        tipoPeticionario={tipos_peticinarios[tramite.tipo_peticionario]}
+                        direccionPeticionario={tramite.direccion_peticionario}
+                        telefonoPeticionario={tramite.telefono_peticionario}
+                        celularPeticionario={tramite.celular_peticionario}
+                        correoPeticionario={tramite.correo_peticionario}
+                        dependenciaTramitante={this.findDependencia(tramite.id)}
+                        tramitante={this.findTramitante(tramite.id)}
+                        fechaTraslado={this.findTraslado(tramite.id)}
+                      />
                     }
                     color="rgb(20, 20, 30)"
                   />
