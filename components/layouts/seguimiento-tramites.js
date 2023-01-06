@@ -1,14 +1,10 @@
 import {
   Box,
-  Text,
   Heading,
-  HStack,
   Flex,
   FormControl,
   useRadioGroup,
   Accordion,
-  Divider,
-  Center
 } from '@chakra-ui/react'
 import ButtomForm from '../buttom-form'
 import { Component, useState } from 'react'

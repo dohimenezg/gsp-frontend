@@ -1,24 +1,7 @@
-import { Avatar, Icon, Flex, Heading, Text, Image } from '@chakra-ui/react'
+import { Flex, Heading, Image } from '@chakra-ui/react'
 import NavItem from './nav-item'
-import { BsThreeDotsVertical } from 'react-icons/bs'
-
-function object_list_to_nav_item(options) {
-  const nav_items_list = []
-  for (let i = 0; i < options.length; i++) {
-    nav_items_list.push(
-      <NavItem
-        item_title={options[i].title}
-        item_link={options[i].link}
-        item_icon={options[i].icon}
-        key={options[i].title + i}
-      />
-    )
-  }
-  return nav_items_list
-}
 
 export default function Sidebar({ top, options, bottom }) {
-  const items = object_list_to_nav_item(options)
   return (
     <Flex
       pos="sticky"
@@ -51,11 +34,19 @@ export default function Sidebar({ top, options, bottom }) {
       {top}
 
       <Flex p="0" flexDir="column" alignContent="flex-start" as="nav">
-        {items}
+        {options.map(value => {
+          return (
+            <NavItem
+              key={value.title}
+              item_title={value.title}
+              item_link={value.link}
+              item_icon={value.icon}
+            />
+          )
+        })}
       </Flex>
 
       {bottom}
-
     </Flex>
   )
 }
