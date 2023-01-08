@@ -1,39 +1,33 @@
 import {
-  Text,
   Box,
   Heading,
   Button,
-  Flex,
-  SliderThumb,
-  SliderTrack,
-  SliderMark,
-  Slider,
-  SliderFilledTrack
+  Flex
 } from '@chakra-ui/react'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import TimeSlider from '../time-slider'
 
 const api = axios.create({
   baseURL: `http://localhost:8000/configs`
 })
 
 export default function ConfiguracionTramites() {
-  const [slider_peticion, set_slider_peticion] = useState(15)
-  const [slider_queja, set_slider_queja] = useState(15)
-  const [slider_reclamo, set_slider_reclamo] = useState(15)
-  const [slider_sugerencia, set_slider_sugerencia] = useState(15)
+  const [sliderPeticion, setSliderPeticion] = useState()
+  const [sliderQueja, setSliderQueja] = useState()
+  const [sliderReclamo, setSliderReclamo] = useState()
+  const [sliderSugerencia, setSliderSugerencia] = useState()
   const minimaDuracion = 1
   const maximaDuracion = 15
 
   const fetchData = async () => {
     try {
       await api.get('/').then(res => {
-        set_slider_peticion(res.data.configuraciones[0].tiempo_limite)
-        set_slider_queja(res.data.configuraciones[1].tiempo_limite)
-        set_slider_reclamo(res.data.configuraciones[2].tiempo_limite)
-        set_slider_sugerencia(res.data.configuraciones[3].tiempo_limite)
+        setSliderPeticion(res.data.configuraciones[0].tiempo_limite)
+        setSliderQueja(res.data.configuraciones[1].tiempo_limite)
+        setSliderReclamo(res.data.configuraciones[2].tiempo_limite)
+        setSliderSugerencia(res.data.configuraciones[3].tiempo_limite)
       })
-      
     } catch (error) {
       console.log(error)
     }
@@ -41,20 +35,20 @@ export default function ConfiguracionTramites() {
 
   const updateConfiguracion = async () => {
     let obj_peticion = {
-      'tipo_configuracion': "P",
-      'tiempo_limite': slider_peticion,
+      tipo_configuracion: 'P',
+      tiempo_limite: sliderPeticion
     }
     let obj_queja = {
-      'tipo_configuracion': "Q",
-      'tiempo_limite': slider_queja,
+      tipo_configuracion: 'Q',
+      tiempo_limite: sliderQueja
     }
     let obj_reclamo = {
-      'tipo_configuracion': "R",
-      'tiempo_limite': slider_reclamo,
+      tipo_configuracion: 'R',
+      tiempo_limite: sliderReclamo
     }
     let obj_sugerencia = {
-      'tipo_configuracion': "S",
-      'tiempo_limite': slider_sugerencia,
+      tipo_configuracion: 'S',
+      tiempo_limite: sliderSugerencia
     }
     try {
       await api.put(`/${1}`, obj_peticion)
@@ -68,6 +62,19 @@ export default function ConfiguracionTramites() {
   useEffect(() => {
     fetchData()
   }, [])
+
+  const callbackPeticion = v => {
+    setSliderPeticion(v)
+  }
+  const callbackQueja = v => {
+    setSliderQueja(v)
+  }
+  const callbackReclamo = v => {
+    setSliderReclamo(v)
+  }
+  const callbackSugerencia = v => {
+    setSliderSugerencia(v)
+  }
   return (
     <Box
       minHeight="100vh"
@@ -105,267 +112,26 @@ export default function ConfiguracionTramites() {
             </Button>
           </Flex>
         </Flex>
-        <Flex
-          py={5}
-          px={20}
-          mx={10}
-          flexDir="column"
-          borderWidth="2px"
-          borderRadius="5px"
-          borderColor="#14141E"
-          bgColor="#36363F"
-          wrap="wrap"
-        >
-          <Text mb={10} fontSize="xl" fontWeight="light">
-            Peticiones
-          </Text>
-          <Slider
-            defaultValue={15}
-            min={minimaDuracion}
-            max={maximaDuracion}
-            colorScheme="red"
-            onChange={v => set_slider_peticion(v)}
-          >
-            <SliderMark value={1} mt={2} fontSize="sm">
-              1
-            </SliderMark>
-            <SliderMark value={3} mt={2} fontSize="sm">
-              3
-            </SliderMark>
-            <SliderMark value={5} mt={2} fontSize="sm">
-              5
-            </SliderMark>
-            <SliderMark value={7} mt={2} fontSize="sm">
-              7
-            </SliderMark>
-            <SliderMark value={9} mt={2} fontSize="sm">
-              9
-            </SliderMark>
-            <SliderMark value={11} mt={2} fontSize="sm">
-              11
-            </SliderMark>
-            <SliderMark value={13} mt={2} fontSize="sm">
-              13
-            </SliderMark>
-            <SliderMark value={15} mt={2} fontSize="sm">
-              15
-            </SliderMark>
-            <SliderMark
-              value={slider_peticion}
-              textAlign="center"
-              bg="red.500"
-              color="white"
-              mt="-10"
-              ml="-5"
-              w="12"
-            >
-              {slider_peticion}
-            </SliderMark>
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
-          <Text mt={10} fontSize="xl" fontWeight="light">
-            Límite de {slider_peticion} días.
-          </Text>
-        </Flex>
-
-        <Flex
-          py={5}
-          px={20}
-          mx={10}
-          flexDir="column"
-          borderWidth="2px"
-          borderRadius="5px"
-          borderColor="#14141E"
-          bgColor="#36363F"
-          wrap="wrap"
-        >
-          <Text mb={10} fontSize="xl" fontWeight="light">
-            Quejas
-          </Text>
-          <Slider
-            defaultValue={15}
-            min={minimaDuracion}
-            max={maximaDuracion}
-            colorScheme="red"
-            onChange={v => set_slider_queja(v)}
-          >
-            <SliderMark value={1} mt={2} fontSize="sm">
-              1
-            </SliderMark>
-            <SliderMark value={3} mt={2} fontSize="sm">
-              3
-            </SliderMark>
-            <SliderMark value={5} mt={2} fontSize="sm">
-              5
-            </SliderMark>
-            <SliderMark value={7} mt={2} fontSize="sm">
-              7
-            </SliderMark>
-            <SliderMark value={9} mt={2} fontSize="sm">
-              9
-            </SliderMark>
-            <SliderMark value={11} mt={2} fontSize="sm">
-              11
-            </SliderMark>
-            <SliderMark value={13} mt={2} fontSize="sm">
-              13
-            </SliderMark>
-            <SliderMark value={15} mt={2} fontSize="sm">
-              15
-            </SliderMark>
-            <SliderMark
-              value={slider_queja}
-              textAlign="center"
-              bg="red.500"
-              color="white"
-              mt="-10"
-              ml="-5"
-              w="12"
-            >
-              {slider_queja}
-            </SliderMark>
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
-          <Text mt={10} fontSize="xl" fontWeight="light">
-            Límite de {slider_queja} días.
-          </Text>
-        </Flex>
-        <Flex
-          py={5}
-          px={20}
-          mx={10}
-          flexDir="column"
-          borderWidth="2px"
-          borderRadius="5px"
-          borderColor="#14141E"
-          bgColor="#36363F"
-          wrap="wrap"
-        >
-          <Text mb={10} fontSize="xl" fontWeight="light">
-            Reclamos
-          </Text>
-          <Slider
-            defaultValue={15}
-            min={minimaDuracion}
-            max={maximaDuracion}
-            colorScheme="red"
-            onChange={v => set_slider_reclamo(v)}
-          >
-            <SliderMark value={1} mt={2} fontSize="sm">
-              1
-            </SliderMark>
-            <SliderMark value={3} mt={2} fontSize="sm">
-              3
-            </SliderMark>
-            <SliderMark value={5} mt={2} fontSize="sm">
-              5
-            </SliderMark>
-            <SliderMark value={7} mt={2} fontSize="sm">
-              7
-            </SliderMark>
-            <SliderMark value={9} mt={2} fontSize="sm">
-              9
-            </SliderMark>
-            <SliderMark value={11} mt={2} fontSize="sm">
-              11
-            </SliderMark>
-            <SliderMark value={13} mt={2} fontSize="sm">
-              13
-            </SliderMark>
-            <SliderMark value={15} mt={2} fontSize="sm">
-              15
-            </SliderMark>
-            <SliderMark
-              value={slider_reclamo}
-              textAlign="center"
-              bg="red.500"
-              color="white"
-              mt="-10"
-              ml="-5"
-              w="12"
-            >
-              {slider_reclamo}
-            </SliderMark>
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
-          <Text mt={10} fontSize="xl" fontWeight="light">
-            Límite de {slider_reclamo} días.
-          </Text>
-        </Flex>
-        <Flex
-          py={5}
-          px={20}
-          mx={10}
-          flexDir="column"
-          borderWidth="2px"
-          borderRadius="5px"
-          borderColor="#14141E"
-          bgColor="#36363F"
-          wrap="wrap"
-        >
-          <Text mb={10} fontSize="xl" fontWeight="light">
-            Sugerencias
-          </Text>
-          <Slider
-            defaultValue={15}
-            min={minimaDuracion}
-            max={maximaDuracion}
-            colorScheme="red"
-            onChange={v => set_slider_sugerencia(v)}
-          >
-            <SliderMark value={1} mt={2} fontSize="sm">
-              1
-            </SliderMark>
-            <SliderMark value={3} mt={2} fontSize="sm">
-              3
-            </SliderMark>
-            <SliderMark value={5} mt={2} fontSize="sm">
-              5
-            </SliderMark>
-            <SliderMark value={7} mt={2} fontSize="sm">
-              7
-            </SliderMark>
-            <SliderMark value={9} mt={2} fontSize="sm">
-              9
-            </SliderMark>
-            <SliderMark value={11} mt={2} fontSize="sm">
-              11
-            </SliderMark>
-            <SliderMark value={13} mt={2} fontSize="sm">
-              13
-            </SliderMark>
-            <SliderMark value={15} mt={2} fontSize="sm">
-              15
-            </SliderMark>
-            <SliderMark
-              value={slider_sugerencia}
-              textAlign="center"
-              bg="red.500"
-              color="white"
-              mt="-10"
-              ml="-5"
-              w="12"
-            >
-              {slider_sugerencia}
-            </SliderMark>
-            <SliderTrack>
-              <SliderFilledTrack />
-            </SliderTrack>
-            <SliderThumb />
-          </Slider>
-          <Text mt={10} fontSize="xl" fontWeight="light">
-            Límite de {slider_sugerencia} días.
-          </Text>
-        </Flex>
+        <TimeSlider
+          name="Peticiones"
+          defaultValue={sliderPeticion}
+          callback={callbackPeticion}
+        />
+        <TimeSlider
+          name="Quejas"
+          defaultValue={sliderQueja}
+          callback={callbackQueja}
+        />
+        <TimeSlider
+          name="Reclamos"
+          defaultValue={sliderReclamo}
+          callback={callbackReclamo}
+        />
+        <TimeSlider
+          name="Sugerencias"
+          defaultValue={sliderSugerencia}
+          callback={callbackSugerencia}
+        />
       </Box>
     </Box>
   )
