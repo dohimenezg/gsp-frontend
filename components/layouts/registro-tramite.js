@@ -6,13 +6,14 @@ import {
   Button,
   useRadioGroup,
   Heading,
-  Flex,
-  Input,
-  Select
+  Flex
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import ButtomForm from '../buttom-form'
 import axios from 'axios'
+import PeticionarioInfo from '../form/peticionario-info'
+import DestinatarioForm from '../form/destinatario-info'
+import TramiteInfo from '../form/tramite-info'
 
 const api = axios.create({
   baseURL: `http://localhost:8000/`
@@ -22,9 +23,22 @@ export default function RegistroTramite() {
   const options = ['Petición', 'Queja', 'Reclamo', 'Sugerencia', 'Felicitación']
   const [tramitantes, setTramitantes] = useState([])
   const [optionsTramitante, setOptionsTramitante] = useState([])
-  const [id_tramitante, set_id_tramitante] = useState(0)
-  const [dependencia_tramitante, set_dependencia_tramitante] =
+  const [idTramitante, setIdTramitante] = useState(0)
+  const [dependenciaTramitante, setDependenciaTramitante] =
     useState('Dependencia')
+
+  const [numeroVentanilla, setNumeroVentanilla] = useState('')
+  const [tipoTramite, setTipoTramite] = useState('P')
+  const [asuntoTramite, setAsuntoTramite] = useState('')
+  const [medioRecepcion, setMedioRecepcion] = useState('WE')
+  const [fechaRecepcion, setFechaRecepcion] = useState('')
+
+  const [nombrePeticionario, setNombrePeticionario] = useState('')
+  const [tipoPeticionario, setTipoPeticionario] = useState('EXT')
+  const [direccionPeticionario, setDireccionPeticionario] = useState('')
+  const [telefonoPeticionario, setTelefonoPeticionario] = useState('')
+  const [celularPeticionario, setCelularPeticionario] = useState('')
+  const [correoPeticionario, setCorreoPeticionario] = useState('')
 
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: 'pqrsf',
@@ -34,8 +48,8 @@ export default function RegistroTramite() {
   const group = getRootProps()
 
   const updateDependencia = value => {
-    set_dependencia_tramitante(
-      tramitantes.find(x => x.id == value).dependencia_tramitante
+    setDependenciaTramitante(
+      tramitantes.find(x => x.id == value).dependenciaTramitante
     )
   }
 
@@ -58,39 +72,26 @@ export default function RegistroTramite() {
     setOptionsTramitante(items)
   }
 
-  const [numero_ventanilla, set_numero_ventanilla] = useState('')
-  const [tipo_tramite, set_tipo_tramite] = useState('P')
-  const [asunto_tramite, set_asunto_tramite] = useState('')
-  const [medio_recepcion, set_medio_recepcion] = useState('WE')
-  const [fecha_recepcion, set_fecha_recepcion] = useState('')
-
-  const [nombre_peticionario, set_nombre_peticionario] = useState('')
-  const [tipo_peticionario, set_tipo_peticionario] = useState('EXT')
-  const [direccion_peticionario, set_direccion_peticionario] = useState('')
-  const [telefono_peticionario, set_telefono_peticionario] = useState('')
-  const [celular_peticionario, set_celular_peticionario] = useState('')
-  const [correo_peticionario, set_correo_peticionario] = useState('')
-
   const updateTipoTramite = datos => {
-    set_tipo_tramite(datos)
+    setTipoTramite(datos)
   }
 
   const createTramite = async () => {
     let id_tramite = 0
     try {
       let res = await api.post('tramites/', {
-        numero_ventanilla,
-        tipo_tramite,
-        asunto_tramite,
-        medio_recepcion,
-        fecha_recepcion,
-        fecha_recepcion,
-        nombre_peticionario,
-        tipo_peticionario,
-        direccion_peticionario,
-        telefono_peticionario,
-        celular_peticionario,
-        correo_peticionario
+        numeroVentanilla,
+        tipoTramite,
+        asuntoTramite,
+        medioRecepcion,
+        fechaRecepcion,
+        fechaRecepcion,
+        nombrePeticionario,
+        tipoPeticionario,
+        direccionPeticionario,
+        telefonoPeticionario,
+        celularPeticionario,
+        correoPeticionario
       })
       id_tramite = res.data.id
       console.log(res)
@@ -98,9 +99,9 @@ export default function RegistroTramite() {
       console.log(error)
     }
     let obj = {
-      fecha_traslado: fecha_recepcion,
+      fecha_traslado: fechaRecepcion,
       id_tramite: id_tramite,
-      id_tramitante: id_tramitante
+      idTramitante: idTramitante
     }
     try {
       let res = await api.post('traslados/', obj)
@@ -159,19 +160,19 @@ export default function RegistroTramite() {
               onClick={createTramite}
               _hover={{ bgColor: 'rgba(172, 172, 178, 50%)' }}
               disabled={
-                !numero_ventanilla ||
-                !tipo_tramite ||
-                !asunto_tramite ||
-                !medio_recepcion ||
-                !fecha_recepcion ||
-                !fecha_recepcion ||
-                !nombre_peticionario ||
-                !tipo_peticionario ||
-                !direccion_peticionario ||
-                !telefono_peticionario ||
-                !celular_peticionario ||
-                !correo_peticionario ||
-                !id_tramitante
+                !numeroVentanilla ||
+                !tipoTramite ||
+                !asuntoTramite ||
+                !medioRecepcion ||
+                !fechaRecepcion ||
+                !fechaRecepcion ||
+                !nombrePeticionario ||
+                !tipoPeticionario ||
+                !direccionPeticionario ||
+                !telefonoPeticionario ||
+                !celularPeticionario ||
+                !correoPeticionario ||
+                !idTramitante
               }
             >
               Registrar Trámite
@@ -181,198 +182,63 @@ export default function RegistroTramite() {
       </Box>
       <Box m={4}>
         <Flex flexDir="column">
-          {/* Información gestion trámite */}
-          <Flex>
-            <FormControl
-              p={3}
-              borderWidth="2px"
-              borderColor="#30303E"
-              borderRadius="5px 5px 0px 0px"
-            >
-              <FormLabel fontWeight="light">Información del Trámite</FormLabel>
-              <HStack spacing="30px">
-                <Input
-                  placeholder="Radicación Número de Ventanilla Única"
-                  bgColor="rgb(48, 48, 62)"
-                  color="rgb(255, 255, 255)"
-                  _placeholder={{ color: 'rgb(172, 172, 178)' }}
-                  borderColor="rgb(172, 172, 178)"
-                  my="5px"
-                  onChange={e => set_numero_ventanilla(e.target.value)}
-                />
-                <Input
-                  placeholder="Fecha de Recepción"
-                  bgColor="rgb(48, 48, 62)"
-                  color="rgb(255, 255, 255)"
-                  _placeholder={{ color: 'rgb(172, 172, 178)' }}
-                  borderColor="rgb(172, 172, 178)"
-                  my="5px"
-                  onChange={e => set_fecha_recepcion(e.target.value)}
-                />
-              </HStack>
-              <HStack spacing="30px">
-                <Input
-                  placeholder="Asunto"
-                  bgColor="rgb(48, 48, 62)"
-                  color="rgb(255, 255, 255)"
-                  _placeholder={{ color: 'rgb(172, 172, 178)' }}
-                  borderColor="rgb(172, 172, 178)"
-                  my="5px"
-                  w="50%"
-                  onChange={e => set_asunto_tramite(e.target.value)}
-                />
-                <Select
-                  bgColor="rgb(48, 48, 62)"
-                  defaultValue=""
-                  color="rgb(172, 172, 178)"
-                  _placeholder={{ color: 'rgb(172, 172, 178)' }}
-                  borderColor="rgb(172, 172, 178)"
-                  my="5px"
-                  w="50%"
-                  onChange={e => set_medio_recepcion(e.target.value)}
-                >
-                  <option disabled value="">
-                    --Medio de Recepción--
-                  </option>
-                  <option value="WE">Web</option>
-                  <option value="ES">Escritorio</option>
-                </Select>
-              </HStack>
-            </FormControl>
+          
+          <Flex
+            p={3}
+            borderWidth="2px"
+            borderColor="#30303E"
+            borderRadius="5px 5px 0px 0px"
+          >
+            <TramiteInfo
+              callbackNumeroVentanilla={setNumeroVentanilla}
+              callbackFechaRecepcion={setFechaRecepcion}
+              callbackAsuntoTramite={setAsuntoTramite}
+              callbackMedioRecepcion={setMedioRecepcion}
+            />
           </Flex>
-          {/* Informacipon del peticionario */}
-          <Flex>
-            <FormControl
-              p={3}
-              borderWidth="0px 2px 2px 2px"
-              borderColor="#30303E"
-              borderRadius="0px 0px 0px 0px"
-            >
-              <FormLabel fontWeight="light">
-                Información del Peticionario
-              </FormLabel>
-              <HStack spacing="30px">
-                <Select
-                  bgColor="rgb(48, 48, 62)"
-                  defaultValue=""
-                  color="rgb(172, 172, 178)"
-                  _placeholder={{ color: 'rgb(172, 172, 178)' }}
-                  borderColor="rgb(172, 172, 178)"
-                  my="5px"
-                  w="50%"
-                  onChange={e => set_tipo_peticionario(e.target.value)}
-                >
-                  <option disabled value="">
-                    --Tipo de Peticionario--
-                  </option>
-                  <option value="PRE">Estudiante de Pregrado</option>
-                  <option value="POS">Estudiante de Posgrado</option>
-                  <option value="EMP">Empleado</option>
-                  <option value="DOC">Docente</option>
-                  <option value="EGR">Egresado</option>
-                  <option value="JUB">Jubilado</option>
-                  <option value="EXT">Persona Externa</option>
-                </Select>
-                <Input
-                  placeholder="Celular"
-                  bgColor="rgb(48, 48, 62)"
-                  color="rgb(255, 255, 255)"
-                  _placeholder={{ color: 'rgb(172, 172, 178)' }}
-                  borderColor="rgb(172, 172, 178)"
-                  my="5px"
-                  w="50%"
-                  onChange={e => set_celular_peticionario(e.target.value)}
-                />
-              </HStack>
-              <HStack spacing="30px">
-                <Input
-                  placeholder="Nombre Completo"
-                  bgColor="rgb(48, 48, 62)"
-                  color="rgb(255, 255, 255)"
-                  _placeholder={{ color: 'rgb(172, 172, 178)' }}
-                  borderColor="rgb(172, 172, 178)"
-                  my="5px"
-                  onChange={e => set_nombre_peticionario(e.target.value)}
-                />
-                <Input
-                  placeholder="Teléfono"
-                  bgColor="rgb(48, 48, 62)"
-                  color="rgb(255, 255, 255)"
-                  _placeholder={{ color: 'rgb(172, 172, 178)' }}
-                  borderColor="rgb(172, 172, 178)"
-                  my="5px"
-                  onChange={e => set_telefono_peticionario(e.target.value)}
-                />
-              </HStack>
-              <HStack spacing="30px">
-                <Input
-                  placeholder="Dirección"
-                  bgColor="rgb(48, 48, 62)"
-                  color="rgb(255, 255, 255)"
-                  _placeholder={{ color: 'rgb(172, 172, 178)' }}
-                  borderColor="rgb(172, 172, 178)"
-                  my="5px"
-                  onChange={e => set_direccion_peticionario(e.target.value)}
-                />
-                <Input
-                  placeholder="Correo Electrónico"
-                  bgColor="rgb(48, 48, 62)"
-                  color="rgb(255, 255, 255)"
-                  _placeholder={{ color: 'rgb(172, 172, 178)' }}
-                  borderColor="rgb(172, 172, 178)"
-                  my="5px"
-                  onChange={e => set_correo_peticionario(e.target.value)}
-                />
-              </HStack>
-            </FormControl>
+          
+          <Flex
+            p={3}
+            borderWidth="0px 2px 2px 2px"
+            borderColor="#30303E"
+            borderRadius="0px 0px 0px 0px"
+          >
+            <PeticionarioInfo
+              callbackCorreoPeticionario={setCorreoPeticionario}
+              callbackDireccionPeticionario={setDireccionPeticionario}
+              callbackTelefonoPeticionario={setTelefonoPeticionario}
+              callbackNombrePeticionario={setNombrePeticionario}
+              callbackCelularPeticionario={setCelularPeticionario}
+              callbackTipoPeticionario={setTipoPeticionario}
+            />
           </Flex>
-          {/* Información del detinatario */}
-          <Flex>
-            <FormControl
+          
+          <Flex minW="100%" flexDir="row">
+            <Flex
               p={3}
               borderWidth="0px 2px 2px 2px"
               borderColor="#30303E"
               borderRadius="0px 0px 0px 2px"
+              minW="50%"
             >
-              <FormLabel fontWeight="light">
-                Información del Destinatario
-              </FormLabel>
-              <Input
-                disabled
-                placeholder="Dependencia"
-                value={dependencia_tramitante}
-                bgColor="rgb(48, 48, 62)"
-                color="rgb(255, 255, 255)"
-                _placeholder={{ color: 'rgb(172, 172, 178)' }}
-                borderColor="rgb(172, 172, 178)"
-                my="5px"
+              <DestinatarioForm 
+                  dependenciaTramitanteValue={dependenciaTramitante}
+                  callbackIdTramitante={setIdTramitante}
+                  callbackUpdateDependencia={updateDependencia}
+                  optionsTramitante={optionsTramitante}
               />
-              <Select
-                bgColor="rgb(48, 48, 62)"
-                defaultValue=""
-                color="rgb(172, 172, 178)"
-                _placeholder={{ color: 'rgb(172, 172, 178)' }}
-                borderColor="rgb(172, 172, 178)"
-                my="5px"
-                onChange={e => {
-                  set_id_tramitante(e.target.value)
-                  updateDependencia(e.target.value)
-                }}
-              >
-                <option disabled value="">
-                  --Trasladado a--
-                </option>
-                {optionsTramitante}
-              </Select>
-            </FormControl>
-            <FormControl
+            </Flex>
+            <Flex
               p={3}
               borderWidth="0px 2px 2px 0px"
               borderColor="#30303E"
               borderRadius="0px 0px 2px 0px"
+              minW="50%"
             >
-              <FormLabel fontWeight="light">Información del Oficio</FormLabel>
-            </FormControl>
+              <FormControl>
+                <FormLabel fontWeight="light">Información del Oficio</FormLabel>
+              </FormControl>
+            </Flex>
           </Flex>
         </Flex>
       </Box>

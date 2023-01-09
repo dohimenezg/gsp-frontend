@@ -63,18 +63,6 @@ export default function ConfiguracionTramites() {
     fetchData()
   }, [])
 
-  const callbackPeticion = v => {
-    setSliderPeticion(v)
-  }
-  const callbackQueja = v => {
-    setSliderQueja(v)
-  }
-  const callbackReclamo = v => {
-    setSliderReclamo(v)
-  }
-  const callbackSugerencia = v => {
-    setSliderSugerencia(v)
-  }
   return (
     <Box
       minHeight="100vh"
@@ -115,22 +103,22 @@ export default function ConfiguracionTramites() {
         <TimeSlider
           name="Peticiones"
           defaultValue={sliderPeticion}
-          callback={callbackPeticion}
+          callback={setSliderPeticion}
         />
         <TimeSlider
           name="Quejas"
           defaultValue={sliderQueja}
-          callback={callbackQueja}
+          callback={setSliderQueja}
         />
         <TimeSlider
           name="Reclamos"
           defaultValue={sliderReclamo}
-          callback={callbackReclamo}
+          callback={setSliderReclamo}
         />
         <TimeSlider
           name="Sugerencias"
           defaultValue={sliderSugerencia}
-          callback={callbackSugerencia}
+          callback={setSliderSugerencia}
         />
       </Box>
     </Box>
