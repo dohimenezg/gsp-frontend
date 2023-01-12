@@ -14,6 +14,7 @@ import axios from 'axios'
 import PeticionarioInfo from '../form/peticionario-info'
 import DestinatarioForm from '../form/destinatario-info'
 import TramiteInfo from '../form/tramite-info'
+import OficioInfo from '../form/oficio-info'
 
 const api = axios.create({
   baseURL: `http://localhost:8000/`
@@ -235,9 +236,7 @@ export default function RegistroTramite() {
               borderRadius="0px 0px 2px 0px"
               minW="50%"
             >
-              <FormControl>
-                <FormLabel fontWeight="light">Información del Oficio</FormLabel>
-              </FormControl>
+              <OficioInfo />
             </Flex>
           </Flex>
         </Flex>
