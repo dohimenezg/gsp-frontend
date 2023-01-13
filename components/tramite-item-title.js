@@ -15,8 +15,11 @@ export default function TramiteItemTitle({
   fechaVencimiento
 }) {
   const start = new Date(fechaRecepcion)
+  start.setHours(0, 0, 0, 0)
   const end = new Date(fechaVencimiento)
+  end.setHours(0, 0, 0, 0)
   const today = new Date()
+  today.setHours(0, 0, 0, 0)
 
   const daysBetween = (date_1, date_2) => {
     console.log(date_1)
@@ -31,9 +34,9 @@ export default function TramiteItemTitle({
   const value = daysBetween(today, start)
 
   const getColorscheme = () => {
-    if (value <= 5) {
+    if (value <= duracion / 3) {
       return 'green'
-    } else if (value <= 10) {
+    } else if (value <= (duracion / 3) * 2) {
       return 'yellow'
     }
     return 'red'
@@ -56,7 +59,7 @@ export default function TramiteItemTitle({
         my={2}
         colorScheme={getColorscheme()}
         borderRadius={5}
-        min={1}
+        min={0}
         max={duracion}
         value={value}
       />
