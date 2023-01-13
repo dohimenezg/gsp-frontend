@@ -14,19 +14,18 @@ export default function TramiteItemTitle({
   fechaRecepcion,
   fechaVencimiento
 }) {
-  const start = new Date(fechaRecepcion)
+  const start = new Date(fechaRecepcion + 'T00:00')
   start.setHours(0, 0, 0, 0)
-  const end = new Date(fechaVencimiento)
+  
+  const end = new Date(fechaVencimiento + 'T00:00')
   end.setHours(0, 0, 0, 0)
+  
   const today = new Date()
   today.setHours(0, 0, 0, 0)
 
   const daysBetween = (date_1, date_2) => {
-    console.log(date_1)
-    console.log(date_2)
     const difference = date_1.getTime() - date_2.getTime()
     const totalDays = Math.ceil(difference / (1000 * 3600 * 24))
-    console.log(totalDays)
     return totalDays
   }
 
