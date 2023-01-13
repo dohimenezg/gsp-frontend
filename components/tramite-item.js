@@ -10,7 +10,7 @@ import {
 
 export default function TramiteItem({ title, content, color }) {
   return (
-    <Flex flexDir="column" alignItems="flex-start" w="100%">
+    <Flex flexDir="column" alignItems="flex-start" w="100%" mb={3}>
       <AccordionItem
         borderWidth="2px 2px 2px 2px"
         borderRadius="5px"

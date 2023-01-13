@@ -1,6 +1,6 @@
 import { useRadio, Box } from '@chakra-ui/react'
 
-export default function ButtomForm(props) {
+export default function ButtonForm(props) {
   const { getInputProps, getCheckboxProps } = useRadio(props)
 
   const input = getInputProps()

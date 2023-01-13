@@ -9,7 +9,7 @@ import {
   Flex
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import ButtomForm from '../buttom-form'
+import ButtonForm from '../button-form'
 import axios from 'axios'
 import PeticionarioInfo from '../form/peticionario-info'
 import DestinatarioForm from '../form/destinatario-info'
@@ -141,14 +141,14 @@ export default function RegistroTramite() {
                 {options.map(value => {
                   const radio = getRadioProps({ value })
                   return (
-                    <ButtomForm
+                    <ButtonForm
                       key={value}
                       text={value[0]}
                       callback={updateTipoTramite}
                       {...radio}
                     >
                       {value}
-                    </ButtomForm>
+                    </ButtonForm>
                   )
                 })}
               </HStack>
@@ -183,7 +183,6 @@ export default function RegistroTramite() {
       </Box>
       <Box m={4}>
         <Flex flexDir="column">
-          
           <Flex
             p={3}
             borderWidth="2px"
@@ -197,7 +196,7 @@ export default function RegistroTramite() {
               callbackMedioRecepcion={setMedioRecepcion}
             />
           </Flex>
-          
+
           <Flex
             p={3}
             borderWidth="0px 2px 2px 2px"
@@ -213,7 +212,7 @@ export default function RegistroTramite() {
               callbackTipoPeticionario={setTipoPeticionario}
             />
           </Flex>
-          
+
           <Flex minW="100%" flexDir="row">
             <Flex
               p={3}
@@ -222,11 +221,12 @@ export default function RegistroTramite() {
               borderRadius="0px 0px 0px 2px"
               minW="50%"
             >
-              <DestinatarioForm 
-                  dependenciaTramitanteValue={dependenciaTramitante}
-                  callbackIdTramitante={setIdTramitante}
-                  callbackUpdateDependencia={updateDependencia}
-                  optionsTramitante={optionsTramitante}
+              <DestinatarioForm
+                key={optionsTramitante}
+                dependenciaTramitanteValue={dependenciaTramitante}
+                callbackIdTramitante={setIdTramitante}
+                callbackUpdateDependencia={updateDependencia}
+                optionsTramitante={optionsTramitante}
               />
             </Flex>
             <Flex

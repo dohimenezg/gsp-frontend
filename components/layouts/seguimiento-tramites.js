@@ -6,7 +6,7 @@ import {
   useRadioGroup,
   Accordion,
 } from '@chakra-ui/react'
-import ButtomForm from '../buttom-form'
+import ButtonForm from '../button-form'
 import { Component, useState } from 'react'
 import TramiteItem from '../tramite-item'
 import axios from 'axios'
