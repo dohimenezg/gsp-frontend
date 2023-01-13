@@ -56,7 +56,7 @@ export default function TramiteItemTitle({
         my={2}
         colorScheme={getColorscheme()}
         borderRadius={5}
-        min={0}
+        min={1}
         max={duracion}
         value={value}
       />
