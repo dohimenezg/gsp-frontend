@@ -23,23 +23,23 @@ const api = axios.create({
 export default function RegistroTramite() {
   const options = ['Petición', 'Queja', 'Reclamo', 'Sugerencia', 'Felicitación']
   const [tramitantes, setTramitantes] = useState([])
-  const [optionsTramitante, setOptionsTramitante] = useState([])
-  const [idTramitante, setIdTramitante] = useState(0)
-  const [dependenciaTramitante, setDependenciaTramitante] =
+  const [options_tramitante, setOptionsTramitante] = useState([])
+  const [id_tramitante, setIdTramitante] = useState(0)
+  const [dependencia_tramitante, setDependenciaTramitante] =
     useState('Dependencia')
 
-  const [numeroVentanilla, setNumeroVentanilla] = useState('')
-  const [tipoTramite, setTipoTramite] = useState('P')
-  const [asuntoTramite, setAsuntoTramite] = useState('')
-  const [medioRecepcion, setMedioRecepcion] = useState('WE')
-  const [fechaRecepcion, setFechaRecepcion] = useState('')
+  const [numero_ventanilla, setNumeroVentanilla] = useState('')
+  const [tipo_tramite, setTipoTramite] = useState('P')
+  const [asunto_tramite, setAsuntoTramite] = useState('')
+  const [medio_recepcion, setMedioRecepcion] = useState('WE')
+  const [fecha_recepcion, setFechaRecepcion] = useState('')
 
-  const [nombrePeticionario, setNombrePeticionario] = useState('')
-  const [tipoPeticionario, setTipoPeticionario] = useState('EXT')
-  const [direccionPeticionario, setDireccionPeticionario] = useState('')
-  const [telefonoPeticionario, setTelefonoPeticionario] = useState('')
-  const [celularPeticionario, setCelularPeticionario] = useState('')
-  const [correoPeticionario, setCorreoPeticionario] = useState('')
+  const [nombre_peticionario, setNombrePeticionario] = useState('')
+  const [tipo_peticionario, setTipoPeticionario] = useState('EXT')
+  const [direccion_peticionario, setDireccionPeticionario] = useState('')
+  const [telefono_peticionario, setTelefonoPeticionario] = useState('')
+  const [celular_peticionario, setCelularPeticionario] = useState('')
+  const [correo_peticionario, setCorreoPeticionario] = useState('')
 
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: 'pqrsf',
@@ -50,7 +50,7 @@ export default function RegistroTramite() {
 
   const updateDependencia = value => {
     setDependenciaTramitante(
-      tramitantes.find(x => x.id == value).dependenciaTramitante
+      tramitantes.find(x => x.id == value).dependencia_tramitante
     )
   }
 
@@ -81,18 +81,18 @@ export default function RegistroTramite() {
     let id_tramite = 0
     try {
       let res = await api.post('tramites/', {
-        numeroVentanilla,
-        tipoTramite,
-        asuntoTramite,
-        medioRecepcion,
-        fechaRecepcion,
-        fechaRecepcion,
-        nombrePeticionario,
-        tipoPeticionario,
-        direccionPeticionario,
-        telefonoPeticionario,
-        celularPeticionario,
-        correoPeticionario
+        numero_ventanilla,
+        tipo_tramite,
+        asunto_tramite,
+        medio_recepcion,
+        fecha_recepcion,
+        fecha_recepcion,
+        nombre_peticionario,
+        tipo_peticionario,
+        direccion_peticionario,
+        telefono_peticionario,
+        celular_peticionario,
+        correo_peticionario
       })
       id_tramite = res.data.id
       console.log(res)
@@ -100,9 +100,9 @@ export default function RegistroTramite() {
       console.log(error)
     }
     let obj = {
-      fecha_traslado: fechaRecepcion,
+      fecha_traslado: fecha_recepcion,
       id_tramite: id_tramite,
-      idTramitante: idTramitante
+      id_tramitante: id_tramitante
     }
     try {
       let res = await api.post('traslados/', obj)
@@ -161,19 +161,19 @@ export default function RegistroTramite() {
               onClick={createTramite}
               _hover={{ bgColor: 'rgba(172, 172, 178, 50%)' }}
               disabled={
-                !numeroVentanilla ||
-                !tipoTramite ||
-                !asuntoTramite ||
-                !medioRecepcion ||
-                !fechaRecepcion ||
-                !fechaRecepcion ||
-                !nombrePeticionario ||
-                !tipoPeticionario ||
-                !direccionPeticionario ||
-                !telefonoPeticionario ||
-                !celularPeticionario ||
-                !correoPeticionario ||
-                !idTramitante
+                !numero_ventanilla ||
+                !tipo_tramite ||
+                !asunto_tramite ||
+                !medio_recepcion ||
+                !fecha_recepcion ||
+                !fecha_recepcion ||
+                !nombre_peticionario ||
+                !tipo_peticionario ||
+                !direccion_peticionario ||
+                !telefono_peticionario ||
+                !celular_peticionario ||
+                !correo_peticionario ||
+                !id_tramitante
               }
             >
               Registrar Trámite
@@ -222,11 +222,11 @@ export default function RegistroTramite() {
               minW="50%"
             >
               <DestinatarioForm
-                key={optionsTramitante}
-                dependenciaTramitanteValue={dependenciaTramitante}
+                key={options_tramitante}
+                dependenciaTramitanteValue={dependencia_tramitante}
                 callbackIdTramitante={setIdTramitante}
                 callbackUpdateDependencia={updateDependencia}
-                optionsTramitante={optionsTramitante}
+                optionsTramitante={options_tramitante}
               />
             </Flex>
             <Flex
