@@ -1,7 +1,7 @@
 import { FormControl, FormLabel } from '@chakra-ui/react'
 import React from 'react'
 
-class OficioInfo extends React.PureComponent {
+class OficioInfo extends React.Component {
   constructor(props) {
     super(props)
   }

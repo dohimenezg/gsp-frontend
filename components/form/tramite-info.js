@@ -1,7 +1,7 @@
 import { FormControl, FormLabel, HStack, Input, Select } from '@chakra-ui/react'
 import React from 'react'
 
-class TramiteInfo extends React.PureComponent {
+class TramiteInfo extends React.Component {
   constructor(props) {
     super(props)
   }

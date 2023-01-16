@@ -1,7 +1,7 @@
 import { FormControl, FormLabel, Input, Select } from '@chakra-ui/react'
 import React from 'react'
 
-class DestinatarioForm extends React.PureComponent {
+class DestinatarioForm extends React.Component {
   constructor(props) {
     super(props)
   }

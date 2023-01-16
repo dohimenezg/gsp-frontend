@@ -9,6 +9,7 @@ function ButtonPicker({ name, defaultValue, options, callback }) {
   })
 
   const group = getRootProps()
+  console.log("Bad render from ButtonPicker")
 
   return (
     <Flex w="max-content">

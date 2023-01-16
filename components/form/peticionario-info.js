@@ -2,7 +2,7 @@ import { FormControl, FormLabel, HStack, Input, Select } from '@chakra-ui/react'
 
 import React from 'react'
 
-class PeticionarioInfo extends React.PureComponent {
+class PeticionarioInfo extends React.Component {
   constructor(props) {
     super(props)
   }
