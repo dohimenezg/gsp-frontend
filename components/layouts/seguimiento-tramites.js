@@ -4,7 +4,7 @@ import {
   Flex,
   FormControl,
   useRadioGroup,
-  Accordion,
+  Accordion
 } from '@chakra-ui/react'
 import ButtonForm from '../button-form'
 import { Component, useState } from 'react'
@@ -121,6 +121,30 @@ class SeguimientoTramites extends Component {
       JUB: 'Jubilado',
       EXT: 'Persona Externa'
     }
+    console.log(this.state.tramites)
+    const traslados = [
+      {
+        dependenciaTramitante: 'Dependencia tramitante 1',
+        tramitante: 'Tramitante 1',
+        fechaTraslado: 'Fecha traslado 1'
+      },
+      {
+        dependenciaTramitante: 'Dependencia tramitante 2',
+        tramitante: 'Tramitante 2',
+        fechaTraslado: 'Fecha traslado 2'
+      },
+      {
+        dependenciaTramitante: 'Dependencia tramitante 3',
+        tramitante: 'Tramitante 3',
+        fechaTraslado: 'Fecha traslado 3'
+      },
+      {
+        dependenciaTramitante: 'Dependencia tramitante 4',
+        tramitante: 'Tramitante 4',
+        fechaTraslado: 'Fecha traslado 4'
+      }
+    ]
+
     return (
       <Box
         minHeight="100vh"
@@ -142,8 +166,39 @@ class SeguimientoTramites extends Component {
         <Box m={4}>
           <Flex flexDir="column" wrap="wrap" minW="100%">
             <Flex w="100%" minW="100%">
-              {/* TODO */}
               <Accordion w="100%" minW="100%" allowToggle>
+                <TramiteItem
+                  key={'tramite.id'}
+                  title={
+                    <TramiteItemTitle
+                      numeroVentanilla={'tramite.numero_ventanilla'}
+                      tipoTramite={'tipos_tramites[tramite.tipo_tramite]'}
+                      fechaRecepcion={'tramite.fecha_recepcion'}
+                      fechaVencimiento={'tramite.fecha_vencimiento'}
+                    />
+                  }
+                  content={
+                    <TramiteItemContent
+                      asuntoTramite={'tramite.asunto_tramite'}
+                      medioRecepcion={'tipos_medios[tramite.medio_recepcion]'}
+                      numeroOficio={'tramite.numero_oficio'}
+                      oficioRespuesta={'tramite.oficio_respuesta'}
+                      fechaRespuesta={'tramite.fecha_respuesta'}
+                      nombrePeticionario={'tramite.nombre_peticionario'}
+                      tipoPeticionario={
+                        'tipos_peticinarios[tramite.tipo_peticionario]'
+                      }
+                      direccionPeticionario={'tramite.direccion_peticionario'}
+                      telefonoPeticionario={'tramite.telefono_peticionario'}
+                      celularPeticionario={'tramite.celular_peticionario'}
+                      correoPeticionario={'tramite.correo_peticionario'}
+                      traslados={traslados}
+                    />
+                  }
+                  color="rgb(20, 20, 30)"
+                />
+                {/* 
+                ----------------------------------------------------------------
                 {this.state.tramites.map(tramite => (
                   <TramiteItem
                     key={tramite.id}
@@ -168,14 +223,14 @@ class SeguimientoTramites extends Component {
                         telefonoPeticionario={tramite.telefono_peticionario}
                         celularPeticionario={tramite.celular_peticionario}
                         correoPeticionario={tramite.correo_peticionario}
-                        dependenciaTramitante={this.findDependencia(tramite.id)}
-                        tramitante={this.findTramitante(tramite.id)}
-                        fechaTraslado={this.findTraslado(tramite.id)}
+                        traslados={ TODO: traslados}
                       />
                     }
                     color="rgb(20, 20, 30)"
                   />
                 ))}
+                ----------------------------------------------------------------
+                 */}
               </Accordion>
             </Flex>
           </Flex>
