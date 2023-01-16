@@ -19,9 +19,7 @@ const api = axios.create({
 
 class SeguimientoTramites extends Component {
   state = {
-    tramites: [],
-    tramitantes: [],
-    traslados: []
+    tramites: []
   }
 
   constructor() {
@@ -38,65 +36,8 @@ class SeguimientoTramites extends Component {
     }
   }
 
-  getTramitantes = async () => {
-    try {
-      api.get('tramitantes/').then(res => {
-        this.setState({ tramitantes: res.data.tramitantes })
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  getTraslados = async () => {
-    try {
-      api.get('traslados/').then(res => {
-        this.setState({ traslados: res.data.traslados })
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   componentDidMount() {
     this.getTramites()
-    this.getTraslados()
-    this.getTramitantes()
-  }
-
-  //TODO: Pasar estas consultas al backend
-
-  findDependencia(id) {
-    let dep = this.state.traslados.find(x => x.id_tramite == id)
-    if (typeof dep == 'undefined') {
-      dep = ''
-    } else {
-      dep = this.state.traslados.find(x => x.id_tramite == id).id_tramitante
-      dep = this.state.tramitantes.find(x => x.id == dep).dependencia_tramitante
-    }
-    return dep
-  }
-
-  findTramitante(id) {
-    let dep = this.state.traslados.find(x => x.id_tramite == id)
-    if (typeof dep == 'undefined') {
-      dep = ''
-    } else {
-      dep = this.state.traslados.find(x => x.id_tramite == id).id_tramitante
-      dep = this.state.tramitantes.find(x => x.id == dep).nombre_tramitante
-    }
-    return dep
-  }
-
-  findTraslado(id) {
-    let dep = this.state.traslados.find(x => x.id_tramite.id == id)
-    if (typeof dep == 'undefined') {
-      dep = ''
-    } else {
-      dep = this.state.traslados.find(x => x.id_tramite.id == id).fecha_traslado
-      console.log(dep);
-    }
-    return dep
   }
 
   render() {
@@ -122,28 +63,6 @@ class SeguimientoTramites extends Component {
       JUB: 'Jubilado',
       EXT: 'Persona Externa'
     }
-    const traslados = [
-      {
-        dependenciaTramitante: 'Dependencia tramitante 1',
-        tramitante: 'Tramitante 1',
-        fechaTraslado: 'Fecha traslado 1'
-      },
-      {
-        dependenciaTramitante: 'Dependencia tramitante 2',
-        tramitante: 'Tramitante 2',
-        fechaTraslado: 'Fecha traslado 2'
-      },
-      {
-        dependenciaTramitante: 'Dependencia tramitante 3',
-        tramitante: 'Tramitante 3',
-        fechaTraslado: 'Fecha traslado 3'
-      },
-      {
-        dependenciaTramitante: 'Dependencia tramitante 4',
-        tramitante: 'Tramitante 4',
-        fechaTraslado: 'Fecha traslado 4'
-      }
-    ]
 
     return (
       <Box
