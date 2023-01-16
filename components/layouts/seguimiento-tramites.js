@@ -16,6 +16,10 @@ class SeguimientoTramites extends Component {
     pickerOption: 'Todos'
   }
 
+  shouldComponentUpdate(nextProps, nextState){
+    return nextState.tramites !== this.state.tramites
+  }
+
   constructor() {
     super()
   }
