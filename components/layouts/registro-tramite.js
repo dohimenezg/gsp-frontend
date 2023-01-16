@@ -1,15 +1,5 @@
-import {
-  Box,
-  FormControl,
-  FormLabel,
-  HStack,
-  Button,
-  useRadioGroup,
-  Heading,
-  Flex
-} from '@chakra-ui/react'
+import { Box, Button, useRadioGroup, Heading, Flex } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import ButtonForm from '../button-form'
 import axios from 'axios'
 import PeticionarioInfo from '../form/peticionario-info'
 import DestinatarioForm from '../form/destinatario-info'
@@ -22,11 +12,11 @@ const api = axios.create({
 
 export default function RegistroTramite() {
   const options = ['Petición', 'Queja', 'Reclamo', 'Sugerencia', 'Felicitación']
+  
   const [tramitantes, setTramitantes] = useState([])
   const [options_tramitante, setOptionsTramitante] = useState([])
   const [id_tramitante, setIdTramitante] = useState(0)
-  const [dependencia_tramitante, setDependenciaTramitante] =
-    useState('Dependencia')
+  const [dependencia_tramitante, setDependenciaTramitante] = useState('Dependencia')
 
   const [numero_ventanilla, setNumeroVentanilla] = useState('')
   const [tipo_tramite, setTipoTramite] = useState('P')
@@ -40,13 +30,6 @@ export default function RegistroTramite() {
   const [telefono_peticionario, setTelefonoPeticionario] = useState('')
   const [celular_peticionario, setCelularPeticionario] = useState('')
   const [correo_peticionario, setCorreoPeticionario] = useState('')
-
-  const { getRootProps, getRadioProps } = useRadioGroup({
-    name: 'pqrsf',
-    defaultValue: 'Petición'
-  })
-
-  const group = getRootProps()
 
   const updateDependencia = value => {
     setDependenciaTramitante(
@@ -130,30 +113,12 @@ export default function RegistroTramite() {
       </Box>
       <Box m={4}>
         <Flex flexDir="row" wrap="wrap">
-          <Flex>
-            <FormControl
-              as="fieldset"
-              p="2px"
-              bgColor="#30303E"
-              borderRadius="5px"
-            >
-              <HStack spacing="2px" {...group} wrap="wrap">
-                {options.map(value => {
-                  const radio = getRadioProps({ value })
-                  return (
-                    <ButtonForm
-                      key={value}
-                      text={value[0]}
-                      callback={updateTipoTramite}
-                      {...radio}
-                    >
-                      {value}
-                    </ButtonForm>
-                  )
-                })}
-              </HStack>
-            </FormControl>
-          </Flex>
+          <ButtonPicker
+            options={options}
+            name={'pqrsf'}
+            defaultValue={'Petición'}
+            callback={updateTipoTramite}
+          />
           <Flex ml="auto">
             <Button
               m="auto"

@@ -1,17 +1,10 @@
-import {
-  Box,
-  Heading,
-  Flex,
-  FormControl,
-  useRadioGroup,
-  Accordion
-} from '@chakra-ui/react'
-import ButtonForm from '../button-form'
-import { Component, useState } from 'react'
+import { Box, Heading, Flex, Accordion } from '@chakra-ui/react'
+import { Component } from 'react'
 import TramiteItem from '../tramite-item'
 import axios from 'axios'
 import TramiteItemTitle from '../tramite-item-title'
 import TramiteItemContent from '../tramite-item-content'
+import ButtonPicker from '../button-picker'
 
 const api = axios.create({
   baseURL: `http://localhost:8000/`
@@ -19,11 +12,22 @@ const api = axios.create({
 
 class SeguimientoTramites extends Component {
   state = {
-    tramites: []
+    tramites: [],
+    pickerOption: 'Todos'
   }
 
   constructor() {
     super()
+  }
+
+  setPickerOption = value => {
+    const options = {
+      T: 'Todos',
+      E: 'EnProceso',
+      C: 'CercaAVencer',
+      V: 'Vencidos'
+    }
+    this.setState({ pickerOption: options[value] })
   }
 
   getTramites = async () => {
@@ -41,6 +45,8 @@ class SeguimientoTramites extends Component {
   }
 
   render() {
+    const options = ['Todos', 'En Proceso', 'Cerca a Vencer', 'Vencidos']
+
     const tipos_tramites = {
       P: 'Petición',
       Q: 'Queja',
@@ -78,9 +84,12 @@ class SeguimientoTramites extends Component {
           </Heading>
         </Box>
         <Box m={4}>
-          <Flex flexDir="column" wrap="wrap">
-            <Flex>{/* TODO */}</Flex>
-          </Flex>
+          <ButtonPicker
+            options={options}
+            name={'estado'}
+            defaultValue={'Todos'}
+            callback={this.setPickerOption}
+          />
         </Box>
         <Box m={4}>
           <Flex flexDir="column" wrap="wrap" minW="100%">
@@ -105,7 +114,9 @@ class SeguimientoTramites extends Component {
                         oficioRespuesta={tramite.oficio_respuesta}
                         fechaRespuesta={tramite.fecha_respuesta}
                         nombrePeticionario={tramite.nombre_peticionario}
-                        tipoPeticionario={tipos_peticinarios[tramite.tipo_peticionario]}
+                        tipoPeticionario={
+                          tipos_peticinarios[tramite.tipo_peticionario]
+                        }
                         direccionPeticionario={tramite.direccion_peticionario}
                         telefonoPeticionario={tramite.telefono_peticionario}
                         celularPeticionario={tramite.celular_peticionario}
