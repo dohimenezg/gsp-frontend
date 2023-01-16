@@ -89,11 +89,12 @@ class SeguimientoTramites extends Component {
   }
 
   findTraslado(id) {
-    let dep = this.state.traslados.find(x => x.id_tramite == id)
+    let dep = this.state.traslados.find(x => x.id_tramite.id == id)
     if (typeof dep == 'undefined') {
       dep = ''
     } else {
-      dep = this.state.traslados.find(x => x.id_tramite == id).fecha_traslado
+      dep = this.state.traslados.find(x => x.id_tramite.id == id).fecha_traslado
+      console.log(dep);
     }
     return dep
   }
@@ -121,7 +122,6 @@ class SeguimientoTramites extends Component {
       JUB: 'Jubilado',
       EXT: 'Persona Externa'
     }
-    console.log(this.state.tramites)
     const traslados = [
       {
         dependenciaTramitante: 'Dependencia tramitante 1',
@@ -167,38 +167,6 @@ class SeguimientoTramites extends Component {
           <Flex flexDir="column" wrap="wrap" minW="100%">
             <Flex w="100%" minW="100%">
               <Accordion w="100%" minW="100%" allowToggle>
-                <TramiteItem
-                  key={'tramite.id'}
-                  title={
-                    <TramiteItemTitle
-                      numeroVentanilla={'tramite.numero_ventanilla'}
-                      tipoTramite={'tipos_tramites[tramite.tipo_tramite]'}
-                      fechaRecepcion={'tramite.fecha_recepcion'}
-                      fechaVencimiento={'tramite.fecha_vencimiento'}
-                    />
-                  }
-                  content={
-                    <TramiteItemContent
-                      asuntoTramite={'tramite.asunto_tramite'}
-                      medioRecepcion={'tipos_medios[tramite.medio_recepcion]'}
-                      numeroOficio={'tramite.numero_oficio'}
-                      oficioRespuesta={'tramite.oficio_respuesta'}
-                      fechaRespuesta={'tramite.fecha_respuesta'}
-                      nombrePeticionario={'tramite.nombre_peticionario'}
-                      tipoPeticionario={
-                        'tipos_peticinarios[tramite.tipo_peticionario]'
-                      }
-                      direccionPeticionario={'tramite.direccion_peticionario'}
-                      telefonoPeticionario={'tramite.telefono_peticionario'}
-                      celularPeticionario={'tramite.celular_peticionario'}
-                      correoPeticionario={'tramite.correo_peticionario'}
-                      traslados={traslados}
-                    />
-                  }
-                  color="rgb(20, 20, 30)"
-                />
-                {/* 
-                ----------------------------------------------------------------
                 {this.state.tramites.map(tramite => (
                   <TramiteItem
                     key={tramite.id}
@@ -223,14 +191,12 @@ class SeguimientoTramites extends Component {
                         telefonoPeticionario={tramite.telefono_peticionario}
                         celularPeticionario={tramite.celular_peticionario}
                         correoPeticionario={tramite.correo_peticionario}
-                        traslados={ TODO: traslados}
+                        traslados={tramite.traslados}
                       />
                     }
                     color="rgb(20, 20, 30)"
                   />
                 ))}
-                ----------------------------------------------------------------
-                 */}
               </Accordion>
             </Flex>
           </Flex>

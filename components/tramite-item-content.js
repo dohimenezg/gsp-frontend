@@ -47,9 +47,9 @@ export default function TramiteItemContent({
         {traslados.map((traslado, index) => (
           <Flex my={1} flexDir="column" minW="100%">
             <Text my="1px">Traslado {index + 1}</Text>
-            <Text my="1px" >Dependencia: {traslado.dependenciaTramitante}</Text>
-            <Text my="1px">Tramitante: {traslado.tramitante}</Text>
-            <Text my="1px">Fecha del Traslado: {traslado.fechaTraslado}</Text>
+            <Text my="1px" >Dependencia: {traslado.id_tramitante.dependencia_tramitante}</Text>
+            <Text my="1px">Tramitante: {traslado.id_tramitante.nombre_tramitante}</Text>
+            <Text my="1px">Fecha del Traslado: {traslado.fecha_traslado}</Text>
           </Flex>
         ))}
       </Flex>
