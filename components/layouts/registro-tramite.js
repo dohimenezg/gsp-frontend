@@ -1,10 +1,11 @@
-import { Box, Button, useRadioGroup, Heading, Flex } from '@chakra-ui/react'
+import { Box, Button, Heading, Flex } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import PeticionarioInfo from '../form/peticionario-info'
 import DestinatarioForm from '../form/destinatario-info'
 import TramiteInfo from '../form/tramite-info'
 import OficioInfo from '../form/oficio-info'
+import ButtonPicker from '../button-picker'
 
 const api = axios.create({
   baseURL: `http://localhost:8000/`

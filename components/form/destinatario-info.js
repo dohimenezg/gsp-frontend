@@ -7,7 +7,7 @@ class DestinatarioForm extends React.PureComponent {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.value !== this.props.value
+    return nextProps.dependenciaTramitanteValue !== this.props.dependenciaTramitanteValue
   }
 
   render() {
