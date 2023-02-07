@@ -11,6 +11,7 @@ const api = axios.create({
 
 class ActualizarTramite extends React.Component {
   state = {
+    tramite: {},
     id_tramitante: '',
     dependencia_tramitante: '',
     fecha_traslado: ''
@@ -36,30 +37,44 @@ class ActualizarTramite extends React.Component {
     return nextProps.id !== this.props.id
   }
 
+  getTramite () {
+    try {
+      api.get(`tramites/${this.props.id_tramite}`).then(res => {
+        this.setState({ tramite: res.data })
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
+  componentDidMount() {
+    console.log(this.props);
+    this.getTramite()
+  }
+
   render() {
-    const traslados = [
-      {
-        id_tramitante: {
-          dependencia_tramitante: 'ads',
-          nombre_tramitante: 'adsdsa'
-        },
-        fecha_traslado: 'poiíer'
-      },
-      {
-        id_tramitante: {
-          dependencia_tramitante: 'ads',
-          nombre_tramitante: 'adsdsa'
-        },
-        fecha_traslado: 'poiíer'
-      },
-      {
-        id_tramitante: {
-          dependencia_tramitante: 'ads',
-          nombre_tramitante: 'adsdsa'
-        },
-        fecha_traslado: 'poiíer'
-      }
-    ]
+    const tipos_tramites = {
+      P: 'Petición',
+      Q: 'Queja',
+      R: 'Reclamo',
+      S: 'Sugerencia',
+      F: 'Felicitación'
+    }
+    const tipos_medios = {
+      WE: 'Web',
+      ES: 'Escrito'
+    }
+
+    const tipos_peticinarios = {
+      PRE: 'Estudiante de Pregrado',
+      POS: 'Estudiante de Posgrado',
+      EMP: 'Empleado',
+      DOC: 'Docente',
+      EGR: 'Egresado',
+      JUB: 'Jubilado',
+      EXT: 'Persona Externa'
+    }
     return (
       <Box
         minHeight="100vh"
@@ -93,22 +108,22 @@ class ActualizarTramite extends React.Component {
               </Button>
             </Flex>
             <TramiteCard
-              numeroVentanilla={'tramite.numero_ventanilla'}
-              tipoTramite={'tipos_tramites[tramite.tipo_tramite]'}
-              fechaRecepcion={'tramite.fecha_recepcion'}
-              fechaVencimiento={'tramite.fecha_vencimiento'}
-              asuntoTramite={'tramite.asunto_tramite'}
-              medioRecepcion={'tipos_medios[tramite.medio_recepcion]'}
-              numeroOficio={'tramite.numero_oficio'}
-              oficioRespuesta={'tramite.oficio_respuesta'}
-              fechaRespuesta={'tramite.fecha_respuesta'}
-              nombrePeticionario={'tramite.nombre_peticionario'}
-              tipoPeticionario={'tipos_peticinarios[tramite.tipo_peticionario]'}
-              direccionPeticionario={'tramite.direccion_peticionario'}
-              telefonoPeticionario={'tramite.telefono_peticionario'}
-              celularPeticionario={'tramite.celular_peticionario'}
-              correoPeticionario={'tramite.correo_peticionario'}
-              traslados={traslados}
+              numeroVentanilla={this.state.tramite.numero_ventanilla}
+              tipoTramite={tipos_tramites[this.state.tramite.tipo_tramite]}
+              fechaRecepcion={this.state.tramite.fecha_recepcion}
+              fechaVencimiento={this.state.tramite.fecha_vencimiento}
+              asuntoTramite={this.state.tramite.asunto_tramite}
+              medioRecepcion={tipos_medios[this.state.tramite.medio_recepcion]}
+              numeroOficio={this.state.tramite.numero_oficio}
+              oficioRespuesta={this.state.tramite.oficio_respuesta}
+              fechaRespuesta={this.state.tramite.fecha_respuesta}
+              nombrePeticionario={this.state.tramite.nombre_peticionario}
+              tipoPeticionario={tipos_peticinarios[this.state.tramite.tipo_peticionario]}
+              direccionPeticionario={this.state.tramite.direccion_peticionario}
+              telefonoPeticionario={this.state.tramite.telefono_peticionario}
+              celularPeticionario={this.state.tramite.celular_peticionario}
+              correoPeticionario={this.state.tramite.correo_peticionario}
+              traslados={[]}
             />
           </Flex>
           <Flex flexDir="row">
