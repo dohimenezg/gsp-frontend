@@ -5,10 +5,15 @@ import {
   Center,
   Divider,
   Text,
-  Progress
+  Progress,
+  Icon,
+  IconButton
 } from '@chakra-ui/react'
+import NextLink from 'next/link'
+import { BiPencil } from 'react-icons/bi'
 
 export default function TramiteItemTitle({
+  id_t,
   numeroVentanilla,
   tipoTramite,
   fechaRecepcion,
@@ -16,10 +21,10 @@ export default function TramiteItemTitle({
 }) {
   const start = new Date(fechaRecepcion + 'T00:00')
   start.setHours(0, 0, 0, 0)
-  
+
   const end = new Date(fechaVencimiento + 'T00:00')
   end.setHours(0, 0, 0, 0)
-  
+
   const today = new Date()
   today.setHours(0, 0, 0, 0)
 
@@ -53,6 +58,17 @@ export default function TramiteItemTitle({
         <Heading as="h2" fontSize="x" fontWeight="normal">
           Tipo PQRSF: {tipoTramite}
         </Heading>
+        <NextLink
+          href={{ pathname: '/actualizar', query: { id_tramite: id_t } }}
+          passHref
+        >
+          <IconButton
+            size="xl"
+            variant="customIconButton"
+            aria-label="Color mode icon"
+            icon={<Icon as={BiPencil} />}
+          />
+        </NextLink>
       </HStack>
       <Progress
         my={2}
