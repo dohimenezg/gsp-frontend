@@ -62,13 +62,12 @@ class ActualizarTramite extends React.Component {
         )
         .catch(err => console.error(err))
     this.setState({options_tramitante: items})
-    console.log(items);
   }
 
   fetchData = async () => {
     const { id_tramite } = this.props
     api
-      .get(`tramites/${id_tramite}`)
+      .get(`tramite/${id_tramite}`)
       .then(res => this.setState({ tramite: res.data }))
       .catch(err => console.error(err))
   }
@@ -90,6 +89,7 @@ class ActualizarTramite extends React.Component {
   }
 
   render() {
+    console.log(this.state.tramite.traslados);
     const tipos_tramites = {
       P: 'Petición',
       Q: 'Queja',
@@ -160,7 +160,7 @@ class ActualizarTramite extends React.Component {
               telefonoPeticionario={this.state.tramite.telefono_peticionario}
               celularPeticionario={this.state.tramite.celular_peticionario}
               correoPeticionario={this.state.tramite.correo_peticionario}
-              traslados={[]}
+              traslados={this.state.tramite.traslados}
             />
           </Flex>
           <Flex flexDir="row">
