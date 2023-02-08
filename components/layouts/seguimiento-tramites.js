@@ -17,7 +17,7 @@ class SeguimientoTramites extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState.tramites !== this.state.tramites || nextState.pickerOption !== this.state.pickerOption
+    return nextState.tramites !== this.state.tramites
   }
 
   constructor() {
@@ -32,16 +32,12 @@ class SeguimientoTramites extends Component {
       V: 'vencidos'
     }
     this.setState({ pickerOption: options[value] })
-    this.getTramites()
+    this.getTramites(options[value])
   }
 
-  getTramites = async () => {
-    let filtro = "todos"
-    if (this.state.pickerOption !== undefined){
-      filtro = this.state.pickerOption
-    }
+  getTramites = async filter => {
     try {
-      api.get(`tramites/${filtro}`).then(res => {
+      api.get(`tramites/${filter}`).then(res => {
         this.setState({ tramites: res.data.tramites })
       })
     } catch (error) {
@@ -50,7 +46,7 @@ class SeguimientoTramites extends Component {
   }
 
   componentDidMount() {
-    this.getTramites()
+    this.getTramites('todos')
   }
 
   render() {
