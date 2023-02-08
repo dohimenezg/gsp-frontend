@@ -36,7 +36,7 @@ class SeguimientoTramites extends Component {
 
   getTramites = async () => {
     try {
-      api.get('tramites/').then(res => {
+      api.get('tramite/').then(res => {
         this.setState({ tramites: res.data.tramites })
       })
     } catch (error) {
