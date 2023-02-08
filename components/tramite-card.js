@@ -6,10 +6,6 @@ class TramiteCard extends React.Component {
     super(props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.value !== this.props.value
-  }
-
   render() {
     return (
       <Flex flexDir="column" mx={4} my={3}>

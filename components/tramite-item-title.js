@@ -13,6 +13,7 @@ import NextLink from 'next/link'
 import { BiPencil } from 'react-icons/bi'
 
 export default function TramiteItemTitle({
+  id_t,
   numeroVentanilla,
   tipoTramite,
   fechaRecepcion,
@@ -58,7 +59,7 @@ export default function TramiteItemTitle({
           Tipo PQRSF: {tipoTramite}
         </Heading>
         <NextLink
-          href={{ pathname: '/actualizar', query: { id: numeroVentanilla } }}
+          href={{ pathname: '/actualizar', query: { id_tramite: id_t } }}
           passHref
         >
           <IconButton

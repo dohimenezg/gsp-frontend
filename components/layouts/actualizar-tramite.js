@@ -4,17 +4,21 @@ import axios from 'axios'
 import TramiteCard from '../tramite-card'
 import DestinatarioFormUpdate from '../form/destinatario-info-update'
 import OficioInfo from '../form/oficio-info'
+import { useRouter } from 'next/router'
 
 const api = axios.create({
   baseURL: `http://localhost:8000/`
 })
 
 class ActualizarTramite extends React.Component {
-  state = {
-    tramite: {},
-    id_tramitante: '',
-    dependencia_tramitante: '',
-    fecha_traslado: ''
+  constructor(props) {
+    super(props)
+    this.state = {
+      tramite: {},
+      id_tramitante: '',
+      dependencia_tramitante: '',
+      fecha_traslado: ''
+    }
   }
 
   setIdTramitante = value => {
@@ -29,28 +33,16 @@ class ActualizarTramite extends React.Component {
     this.setState({ fecha_traslado: value })
   }
 
-  constructor(props) {
-    super(props)
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return nextProps.id !== this.props.id
-  }
-
-  getTramite () {
-    try {
-      api.get(`tramites/${this.props.id_tramite}`).then(res => {
-        this.setState({ tramite: res.data })
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-
   componentDidMount() {
-    console.log(this.props);
-    this.getTramite()
+    this.fetchData()
+  }
+
+  fetchData = async () => {
+    const { id_tramite } = this.props
+    api
+      .get(`tramites/${id_tramite}`)
+      .then(res => this.setState({ tramite: res.data }))
+      .catch(err => console.error(err))
   }
 
   render() {
@@ -65,7 +57,6 @@ class ActualizarTramite extends React.Component {
       WE: 'Web',
       ES: 'Escrito'
     }
-
     const tipos_peticinarios = {
       PRE: 'Estudiante de Pregrado',
       POS: 'Estudiante de Posgrado',
@@ -85,7 +76,7 @@ class ActualizarTramite extends React.Component {
       >
         <Box m={4}>
           <Heading as="h3" size="lg" fontWeight="light">
-            Actualización de Trámites {this.props.id}
+            Actualización de Trámites
           </Heading>
           <Flex
             flexDir="column"
@@ -118,7 +109,9 @@ class ActualizarTramite extends React.Component {
               oficioRespuesta={this.state.tramite.oficio_respuesta}
               fechaRespuesta={this.state.tramite.fecha_respuesta}
               nombrePeticionario={this.state.tramite.nombre_peticionario}
-              tipoPeticionario={tipos_peticinarios[this.state.tramite.tipo_peticionario]}
+              tipoPeticionario={
+                tipos_peticinarios[this.state.tramite.tipo_peticionario]
+              }
               direccionPeticionario={this.state.tramite.direccion_peticionario}
               telefonoPeticionario={this.state.tramite.telefono_peticionario}
               celularPeticionario={this.state.tramite.celular_peticionario}

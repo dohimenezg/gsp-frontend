@@ -104,6 +104,7 @@ class SeguimientoTramites extends Component {
                     key={tramite.id}
                     title={
                       <TramiteItemTitle
+                        id_t={tramite.id}
                         numeroVentanilla={tramite.numero_ventanilla}
                         tipoTramite={tipos_tramites[tramite.tipo_tramite]}
                         fechaRecepcion={tramite.fecha_recepcion}

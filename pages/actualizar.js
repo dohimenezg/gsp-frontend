@@ -6,15 +6,13 @@ import { useRouter } from 'next/router'
 
 export default function Actualizar() {
   const router = useRouter()
-  const query = router.query
-  const id = query.id
-
+  const { id_tramite } = router.query
   return (
     <Flex display="flex" alignItems="flex-start">
       <StickyBox>
         <MainSidebar />
       </StickyBox>
-      <ActualizarTramite id={id} />
+      <ActualizarTramite id_tramite={id_tramite} />
     </Flex>
   )
 }
