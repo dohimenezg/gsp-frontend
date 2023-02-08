@@ -16,7 +16,7 @@ class SeguimientoTramites extends Component {
     pickerOption: 'Todos'
   }
 
-  shouldComponentUpdate(nextProps, nextState){
+  shouldComponentUpdate(nextProps, nextState) {
     return nextState.tramites !== this.state.tramites
   }
 
@@ -104,7 +104,6 @@ class SeguimientoTramites extends Component {
                     key={tramite.id}
                     title={
                       <TramiteItemTitle
-                        id_t={tramite.id}
                         numeroVentanilla={tramite.numero_ventanilla}
                         tipoTramite={tipos_tramites[tramite.tipo_tramite]}
                         fechaRecepcion={tramite.fecha_recepcion}
@@ -113,6 +112,7 @@ class SeguimientoTramites extends Component {
                     }
                     content={
                       <TramiteItemContent
+                        id_t={tramite.id}
                         asuntoTramite={tramite.asunto_tramite}
                         medioRecepcion={tipos_medios[tramite.medio_recepcion]}
                         numeroOficio={tramite.numero_oficio}

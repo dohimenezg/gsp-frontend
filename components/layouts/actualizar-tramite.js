@@ -4,7 +4,6 @@ import axios from 'axios'
 import TramiteCard from '../tramite-card'
 import DestinatarioFormUpdate from '../form/destinatario-info-update'
 import OficioInfo from '../form/oficio-info'
-import { useRouter } from 'next/router'
 
 const api = axios.create({
   baseURL: `http://localhost:8000/`
@@ -65,7 +64,6 @@ class ActualizarTramite extends React.Component {
     this.setState({options_tramitante: items})
     console.log(items);
   }
-
 
   fetchData = async () => {
     const { id_tramite } = this.props

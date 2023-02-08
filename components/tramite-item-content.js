@@ -1,6 +1,9 @@
-import { Flex, Box, Text } from '@chakra-ui/react'
+import { Flex, Box, Text, Icon, Button } from '@chakra-ui/react'
+import NextLink from 'next/link'
+import { BiPencil } from 'react-icons/bi'
 
 export default function TramiteItemContent({
+  id_t,
   asuntoTramite,
   medioRecepcion,
   numeroOficio,
@@ -47,11 +50,30 @@ export default function TramiteItemContent({
         {traslados.map((traslado, index) => (
           <Flex key={'traslado-' + index} my={1} flexDir="column" minW="100%">
             <Text my="1px">Traslado {index + 1}</Text>
-            <Text my="1px" >Dependencia: {traslado.id_tramitante.dependencia_tramitante}</Text>
-            <Text my="1px">Tramitante: {traslado.id_tramitante.nombre_tramitante}</Text>
+            <Text my="1px">
+              Dependencia: {traslado.id_tramitante.dependencia_tramitante}
+            </Text>
+            <Text my="1px">
+              Tramitante: {traslado.id_tramitante.nombre_tramitante}
+            </Text>
             <Text my="1px">Fecha del Traslado: {traslado.fecha_traslado}</Text>
           </Flex>
         ))}
+      </Flex>
+      <Flex flexDir="column" w="min-content" my={3} ml="auto">
+        <NextLink
+          href={{ pathname: '/actualizar', query: { id_tramite: id_t } }}
+          passHref
+        >
+          <Button
+            size="md"
+            bgColor="rgb(123, 18, 46)"
+            _hover={{ bgColor: 'rgba(172, 172, 178, 50%)' }}
+            leftIcon={<Icon as={BiPencil} />}
+          >
+            Actualizar
+          </Button>
+        </NextLink>
       </Flex>
     </Flex>
   )
