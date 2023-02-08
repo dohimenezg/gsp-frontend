@@ -17,7 +17,9 @@ class ActualizarTramite extends React.Component {
       tramite: {},
       id_tramitante: '',
       dependencia_tramitante: '',
-      fecha_traslado: ''
+      fecha_traslado: '',
+      options_tramitante: '',
+      tramitantes: '',
     }
   }
 
@@ -34,8 +36,36 @@ class ActualizarTramite extends React.Component {
   }
 
   componentDidMount() {
+    this.fetchTramitantes()
     this.fetchData()
   }
+
+  updateDependencia = value => {
+    this.setDependenciaTramitante(
+      this.state.tramitantes.find(x => x.id == value).dependencia_tramitante
+    )
+  }
+
+  fetchTramitantes = async () => {
+    let items = []
+    await api
+      .get('tramitantes/')
+      .then(res => {
+        this.setState({tramitantes: res.data.tramitantes})
+        for (let i = 0; i < res.data.tramitantes.length; i++) {
+          items.push(
+            <option key={i} value={res.data.tramitantes[i].id}>
+              {res.data.tramitantes[i].nombre_tramitante}
+            </option>
+            )
+          }
+        }
+        )
+        .catch(err => console.error(err))
+    this.setState({options_tramitante: items})
+    console.log(items);
+  }
+
 
   fetchData = async () => {
     const { id_tramite } = this.props
@@ -43,6 +73,22 @@ class ActualizarTramite extends React.Component {
       .get(`tramites/${id_tramite}`)
       .then(res => this.setState({ tramite: res.data }))
       .catch(err => console.error(err))
+  }
+
+  createTraslado = async () => {
+    const { id_tramite } = this.props
+
+    let obj = {
+      fecha_traslado: this.state.fecha_traslado,
+      id_tramite: id_tramite,
+      id_tramitante: this.state.id_tramitante
+    }
+    try {
+      let res = await api.post('traslados/', obj)
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   render() {
@@ -92,7 +138,7 @@ class ActualizarTramite extends React.Component {
                 ml="auto"
                 mr={2}
                 bgColor="rgb(123, 18, 46)"
-                onClick={console.log('TODO')}
+                onClick={this.createTraslado}
                 _hover={{ bgColor: 'rgba(172, 172, 178, 50%)' }}
               >
                 Actualizar Trámite
@@ -131,9 +177,9 @@ class ActualizarTramite extends React.Component {
               <DestinatarioFormUpdate
                 callbackFechaTraslado={this.setFechaTraslado}
                 callbackIdTramitante={this.setIdTramitante}
-                callbackUpdateDependencia={this.setDependenciaTramitante}
+                callbackUpdateDependencia={this.updateDependencia}
                 dependenciaTramitanteValue={this.state.dependencia_tramitante}
-                optionsTramitante={this.optionsTramitante}
+                optionsTramitante={this.state.options_tramitante}
               />
             </Flex>
             <Flex

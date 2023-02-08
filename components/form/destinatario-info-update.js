@@ -9,7 +9,8 @@ class DestinatarioFormUpdate extends React.Component {
   shouldComponentUpdate(nextProps) {
     return (
       nextProps.dependenciaTramitanteValue !==
-      this.props.dependenciaTramitanteValue
+      this.props.dependenciaTramitanteValue || 
+      nextProps.optionsTramitante !== this.props.optionsTramitante
     )
   }
 
