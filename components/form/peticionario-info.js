@@ -93,6 +93,7 @@ class PeticionarioInfo extends React.Component {
             _placeholder={{ color: 'rgb(172, 172, 178)' }}
             borderColor="rgb(172, 172, 178)"
             my="5px"
+            type="email"
             onChange={e =>
               this.props.callbackCorreoPeticionario(e.target.value)
             }
