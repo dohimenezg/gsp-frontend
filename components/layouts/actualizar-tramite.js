@@ -18,7 +18,7 @@ class ActualizarTramite extends React.Component {
       dependencia_tramitante: '',
       fecha_traslado: '',
       options_tramitante: '',
-      tramitantes: ''
+      tramitantes: '',
     }
   }
 
@@ -50,18 +50,19 @@ class ActualizarTramite extends React.Component {
     await api
       .get('tramitantes/')
       .then(res => {
-        this.setState({ tramitantes: res.data.tramitantes })
+        this.setState({tramitantes: res.data.tramitantes})
         for (let i = 0; i < res.data.tramitantes.length; i++) {
           items.push(
             <option key={i} value={res.data.tramitantes[i].id}>
               {res.data.tramitantes[i].nombre_tramitante}
             </option>
-          )
+            )
+          }
         }
-      })
-      .catch(err => console.error(err))
-    this.setState({ options_tramitante: items })
-    console.log(items)
+        )
+        .catch(err => console.error(err))
+    this.setState({options_tramitante: items})
+    console.log(items);
   }
 
   fetchData = async () => {
