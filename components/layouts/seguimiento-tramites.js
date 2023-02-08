@@ -13,11 +13,11 @@ const api = axios.create({
 class SeguimientoTramites extends Component {
   state = {
     tramites: [],
-    pickerOption: 'Todos'
+    pickerOption: 'todos'
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextState.tramites !== this.state.tramites
+    return nextState.tramites !== this.state.tramites || nextState.pickerOption !== this.state.pickerOption
   }
 
   constructor() {
@@ -26,17 +26,22 @@ class SeguimientoTramites extends Component {
 
   setPickerOption = value => {
     const options = {
-      T: 'Todos',
-      E: 'EnProceso',
-      C: 'CercaAVencer',
-      V: 'Vencidos'
+      T: 'todos',
+      E: 'en-proceso',
+      C: 'cerca-a-vencer',
+      V: 'vencidos'
     }
     this.setState({ pickerOption: options[value] })
+    this.getTramites()
   }
 
   getTramites = async () => {
+    let filtro = "todos"
+    if (this.state.pickerOption !== undefined){
+      filtro = this.state.pickerOption
+    }
     try {
-      api.get('tramites/').then(res => {
+      api.get(`tramites/${filtro}`).then(res => {
         this.setState({ tramites: res.data.tramites })
       })
     } catch (error) {
