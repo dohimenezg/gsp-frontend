@@ -8,7 +8,7 @@ class PeticionarioInfo extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.value !== this.props.value
+    return nextProps.isValidEmail !== this.props.isValidEmail
   }
 
   render() {
@@ -90,9 +90,17 @@ class PeticionarioInfo extends React.Component {
             placeholder="Correo Electrónico"
             bgColor="rgb(48, 48, 62)"
             color="rgb(255, 255, 255)"
-            _placeholder={{ color: 'rgb(172, 172, 178)' }}
-            borderColor="rgb(172, 172, 178)"
+            _placeholder={{
+              color: 'rgb(172, 172, 178)',
+              borderColor: this.props.isValidEmail
+                ? 'rgb(172, 172, 178)'
+                : 'rgb(255, 0, 0)'
+            }}
+            borderColor={
+              this.props.isValidEmail ? 'rgb(172, 172, 178)' : 'rgb(255, 0, 0)'
+            }
             my="5px"
+            type="email"
             onChange={e =>
               this.props.callbackCorreoPeticionario(e.target.value)
             }

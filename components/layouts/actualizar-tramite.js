@@ -4,7 +4,6 @@ import axios from 'axios'
 import TramiteCard from '../tramite-card'
 import DestinatarioFormUpdate from '../form/destinatario-info-update'
 import OficioInfo from '../form/oficio-info'
-import { useRouter } from 'next/router'
 
 const api = axios.create({
   baseURL: `http://localhost:8000/`
@@ -19,7 +18,7 @@ class ActualizarTramite extends React.Component {
       dependencia_tramitante: '',
       fecha_traslado: '',
       options_tramitante: '',
-      tramitantes: '',
+      tramitantes: ''
     }
   }
 
@@ -51,21 +50,18 @@ class ActualizarTramite extends React.Component {
     await api
       .get('tramitantes/')
       .then(res => {
-        this.setState({tramitantes: res.data.tramitantes})
+        this.setState({ tramitantes: res.data.tramitantes })
         for (let i = 0; i < res.data.tramitantes.length; i++) {
           items.push(
             <option key={i} value={res.data.tramitantes[i].id}>
               {res.data.tramitantes[i].nombre_tramitante}
             </option>
-            )
-          }
+          )
         }
-        )
-        .catch(err => console.error(err))
-    this.setState({options_tramitante: items})
-    console.log(items);
+      })
+      .catch(err => console.error(err))
+    this.setState({ options_tramitante: items })
   }
-
 
   fetchData = async () => {
     const { id_tramite } = this.props
@@ -84,7 +80,15 @@ class ActualizarTramite extends React.Component {
       id_tramitante: this.state.id_tramitante
     }
     try {
-      let res = await api.post('traslados/', obj)
+      let res = await api
+        .post('traslados/', obj)
+        .then(response => {
+          alert('Trámite Actualizado')
+          window.location.reload()
+        })
+        .catch(error => {
+          alert('No es actualizar el trámite')
+        })
       console.log(res)
     } catch (error) {
       console.log(error)
@@ -92,6 +96,7 @@ class ActualizarTramite extends React.Component {
   }
 
   render() {
+    console.log(this.state.tramite.traslados)
     const tipos_tramites = {
       P: 'Petición',
       Q: 'Queja',
@@ -140,6 +145,11 @@ class ActualizarTramite extends React.Component {
                 bgColor="rgb(123, 18, 46)"
                 onClick={this.createTraslado}
                 _hover={{ bgColor: 'rgba(172, 172, 178, 50%)' }}
+                disabled={
+                  !this.state.id_tramitante ||
+                  !this.state.dependencia_tramitante ||
+                  !this.state.fecha_traslado
+                }
               >
                 Actualizar Trámite
               </Button>
@@ -162,7 +172,7 @@ class ActualizarTramite extends React.Component {
               telefonoPeticionario={this.state.tramite.telefono_peticionario}
               celularPeticionario={this.state.tramite.celular_peticionario}
               correoPeticionario={this.state.tramite.correo_peticionario}
-              traslados={[]}
+              traslados={this.state.tramite.traslados}
             />
           </Flex>
           <Flex flexDir="row">

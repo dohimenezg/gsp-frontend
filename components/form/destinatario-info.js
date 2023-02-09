@@ -7,7 +7,11 @@ class DestinatarioForm extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.dependenciaTramitanteValue !== this.props.dependenciaTramitanteValue
+    return (
+      nextProps.dependenciaTramitanteValue !==
+        this.props.dependenciaTramitanteValue ||
+      nextProps.optionsTramitante !== this.props.optionsTramitante
+    )
   }
 
   render() {

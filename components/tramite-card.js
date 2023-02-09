@@ -7,6 +7,9 @@ class TramiteCard extends React.Component {
   }
 
   render() {
+    if (!this.props.traslados){
+      return null
+    }
     return (
       <Flex flexDir="column" mx={4} my={3}>
         <HStack spacing="30px" my={2}>
@@ -79,25 +82,18 @@ class TramiteCard extends React.Component {
             </Text>
           </Flex>
           <Flex flexDir="column" minW="100%">
-            {this.props.traslados.map((traslado, index) => (
-              <Flex
-                key={'traslado-' + index}
-                my={1}
-                flexDir="column"
-                minW="100%"
-              >
-                <Text my="1px">Traslado {index + 1}</Text>
-                <Text>
-                  Dependencia: {traslado.id_tramitante.dependencia_tramitante}
-                </Text>
-                <Text>
-                  Tramitante: {traslado.id_tramitante.nombre_tramitante}
-                </Text>
-                <Text>
-                  Fecha del Traslado: {traslado.fecha_traslado}
-                </Text>
-              </Flex>
-            ))}
+          {this.props.traslados.map((traslado, index) => (
+          <Flex key={'traslado-' + index} my={1} flexDir="column" minW="100%">
+            <Text my="1px">Traslado {index + 1}</Text>
+            <Text my="1px">
+              Dependencia: {traslado.id_tramitante.dependencia_tramitante}
+            </Text>
+            <Text my="1px">
+              Tramitante: {traslado.id_tramitante.nombre_tramitante}
+            </Text>
+            <Text my="1px">Fecha del Traslado: {traslado.fecha_traslado}</Text>
+          </Flex>
+        ))}
           </Flex>
         </Flex>
       </Flex>

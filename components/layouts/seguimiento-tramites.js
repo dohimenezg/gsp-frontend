@@ -13,10 +13,10 @@ const api = axios.create({
 class SeguimientoTramites extends Component {
   state = {
     tramites: [],
-    pickerOption: 'Todos'
+    pickerOption: 'todos'
   }
 
-  shouldComponentUpdate(nextProps, nextState){
+  shouldComponentUpdate(nextProps, nextState) {
     return nextState.tramites !== this.state.tramites
   }
 
@@ -26,17 +26,18 @@ class SeguimientoTramites extends Component {
 
   setPickerOption = value => {
     const options = {
-      T: 'Todos',
-      E: 'EnProceso',
-      C: 'CercaAVencer',
-      V: 'Vencidos'
+      T: 'todos',
+      E: 'en-proceso',
+      C: 'cerca-a-vencer',
+      V: 'vencidos'
     }
     this.setState({ pickerOption: options[value] })
+    this.getTramites(options[value])
   }
 
-  getTramites = async () => {
+  getTramites = async filter => {
     try {
-      api.get('tramites/').then(res => {
+      api.get(`tramites/filtro/${filter}`).then(res => {
         this.setState({ tramites: res.data.tramites })
       })
     } catch (error) {
@@ -45,7 +46,7 @@ class SeguimientoTramites extends Component {
   }
 
   componentDidMount() {
-    this.getTramites()
+    this.getTramites('todos')
   }
 
   render() {
@@ -104,7 +105,6 @@ class SeguimientoTramites extends Component {
                     key={tramite.id}
                     title={
                       <TramiteItemTitle
-                        id_t={tramite.id}
                         numeroVentanilla={tramite.numero_ventanilla}
                         tipoTramite={tipos_tramites[tramite.tipo_tramite]}
                         fechaRecepcion={tramite.fecha_recepcion}
@@ -113,6 +113,7 @@ class SeguimientoTramites extends Component {
                     }
                     content={
                       <TramiteItemContent
+                        id_t={tramite.id}
                         asuntoTramite={tramite.asunto_tramite}
                         medioRecepcion={tipos_medios[tramite.medio_recepcion]}
                         numeroOficio={tramite.numero_oficio}

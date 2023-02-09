@@ -13,11 +13,12 @@ const api = axios.create({
 
 export default function RegistroTramite() {
   const options = ['Petición', 'Queja', 'Reclamo', 'Sugerencia', 'Felicitación']
-  
+
   const [tramitantes, setTramitantes] = useState([])
   const [options_tramitante, setOptionsTramitante] = useState([])
   const [id_tramitante, setIdTramitante] = useState(0)
-  const [dependencia_tramitante, setDependenciaTramitante] = useState('Dependencia')
+  const [dependencia_tramitante, setDependenciaTramitante] =
+    useState('Dependencia')
 
   const [numero_ventanilla, setNumeroVentanilla] = useState('')
   const [tipo_tramite, setTipoTramite] = useState('P')
@@ -31,6 +32,8 @@ export default function RegistroTramite() {
   const [telefono_peticionario, setTelefonoPeticionario] = useState('')
   const [celular_peticionario, setCelularPeticionario] = useState('')
   const [correo_peticionario, setCorreoPeticionario] = useState('')
+
+  const [isValidEmail, setIsValidEmail] = useState(false)
 
   const updateDependencia = value => {
     setDependenciaTramitante(
@@ -61,23 +64,38 @@ export default function RegistroTramite() {
     setTipoTramite(datos)
   }
 
+  const checkEmail = email => {
+    let isValid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)
+    setCorreoPeticionario(email)
+    setIsValidEmail(isValid)
+  }
+
   const createTramite = async () => {
     let id_tramite = 0
     try {
-      let res = await api.post('tramites/', {
-        numero_ventanilla,
-        tipo_tramite,
-        asunto_tramite,
-        medio_recepcion,
-        fecha_recepcion,
-        fecha_recepcion,
-        nombre_peticionario,
-        tipo_peticionario,
-        direccion_peticionario,
-        telefono_peticionario,
-        celular_peticionario,
-        correo_peticionario
-      })
+      let res = await api
+        .post('tramites/', {
+          numero_ventanilla,
+          tipo_tramite,
+          asunto_tramite,
+          medio_recepcion,
+          fecha_recepcion,
+          fecha_recepcion,
+          nombre_peticionario,
+          tipo_peticionario,
+          direccion_peticionario,
+          telefono_peticionario,
+          celular_peticionario,
+          correo_peticionario
+        })
+        .then(response => {
+          alert('Tramite registrado exitosamente')
+          window.location.reload()
+        })
+        .catch(error => {
+          console.log(error)
+          alert('No es posible agregar el trámite')
+        })
       id_tramite = res.data.id
       console.log(res)
     } catch (error) {
@@ -139,7 +157,8 @@ export default function RegistroTramite() {
                 !telefono_peticionario ||
                 !celular_peticionario ||
                 !correo_peticionario ||
-                !id_tramitante
+                !id_tramitante ||
+                !isValidEmail
               }
             >
               Registrar Trámite
@@ -170,7 +189,8 @@ export default function RegistroTramite() {
             borderRadius="0px 0px 0px 0px"
           >
             <PeticionarioInfo
-              callbackCorreoPeticionario={setCorreoPeticionario}
+              isValidEmail={isValidEmail}
+              callbackCorreoPeticionario={checkEmail}
               callbackDireccionPeticionario={setDireccionPeticionario}
               callbackTelefonoPeticionario={setTelefonoPeticionario}
               callbackNombrePeticionario={setNombrePeticionario}
