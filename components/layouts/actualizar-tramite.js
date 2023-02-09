@@ -18,7 +18,7 @@ class ActualizarTramite extends React.Component {
       dependencia_tramitante: '',
       fecha_traslado: '',
       options_tramitante: '',
-      tramitantes: '',
+      tramitantes: ''
     }
   }
 
@@ -50,18 +50,17 @@ class ActualizarTramite extends React.Component {
     await api
       .get('tramitantes/')
       .then(res => {
-        this.setState({tramitantes: res.data.tramitantes})
+        this.setState({ tramitantes: res.data.tramitantes })
         for (let i = 0; i < res.data.tramitantes.length; i++) {
           items.push(
             <option key={i} value={res.data.tramitantes[i].id}>
               {res.data.tramitantes[i].nombre_tramitante}
             </option>
-            )
-          }
+          )
         }
-        )
-        .catch(err => console.error(err))
-    this.setState({options_tramitante: items})
+      })
+      .catch(err => console.error(err))
+    this.setState({ options_tramitante: items })
   }
 
   fetchData = async () => {
@@ -81,7 +80,15 @@ class ActualizarTramite extends React.Component {
       id_tramitante: this.state.id_tramitante
     }
     try {
-      let res = await api.post('traslados/', obj)
+      let res = await api
+        .post('traslados/', obj)
+        .then(response => {
+          alert('Trámite Actualizado')
+          window.location.reload()
+        })
+        .catch(error => {
+          alert('No es actualizar el trámite')
+        })
       console.log(res)
     } catch (error) {
       console.log(error)
@@ -89,7 +96,7 @@ class ActualizarTramite extends React.Component {
   }
 
   render() {
-    console.log(this.state.tramite.traslados);
+    console.log(this.state.tramite.traslados)
     const tipos_tramites = {
       P: 'Petición',
       Q: 'Queja',
@@ -138,6 +145,11 @@ class ActualizarTramite extends React.Component {
                 bgColor="rgb(123, 18, 46)"
                 onClick={this.createTraslado}
                 _hover={{ bgColor: 'rgba(172, 172, 178, 50%)' }}
+                disabled={
+                  !this.state.id_tramitante ||
+                  !this.state.dependencia_tramitante ||
+                  !this.state.fecha_traslado
+                }
               >
                 Actualizar Trámite
               </Button>

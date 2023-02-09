@@ -13,7 +13,7 @@ const api = axios.create({
 
 export default function RegistroTramite() {
   const options = ['Petición', 'Queja', 'Reclamo', 'Sugerencia', 'Felicitación']
-  
+
   const [tramitantes, setTramitantes] = useState([])
   const [options_tramitante, setOptionsTramitante] = useState([])
   const [id_tramitante, setIdTramitante] = useState(0)
@@ -31,6 +31,19 @@ export default function RegistroTramite() {
   const [telefono_peticionario, setTelefonoPeticionario] = useState('')
   const [celular_peticionario, setCelularPeticionario] = useState('')
   const [correo_peticionario, setCorreoPeticionario] = useState('')
+
+  const clearForm = () => {
+    setIdTramitante(0)
+    setDependenciaTramitante('Dependencia')
+    setNumeroVentanilla('')
+    setAsuntoTramite('')
+    setFechaRecepcion('')
+    setNombrePeticionario('')
+    setDireccionPeticionario('')
+    setTelefonoPeticionario('')
+    setCelularPeticionario('')
+    setCorreoPeticionario('')
+  }
 
   const updateDependencia = value => {
     setDependenciaTramitante(
@@ -64,20 +77,28 @@ export default function RegistroTramite() {
   const createTramite = async () => {
     let id_tramite = 0
     try {
-      let res = await api.post('tramites/', {
-        numero_ventanilla,
-        tipo_tramite,
-        asunto_tramite,
-        medio_recepcion,
-        fecha_recepcion,
-        fecha_recepcion,
-        nombre_peticionario,
-        tipo_peticionario,
-        direccion_peticionario,
-        telefono_peticionario,
-        celular_peticionario,
-        correo_peticionario
-      })
+      let res = await api
+        .post('tramites/', {
+          numero_ventanilla,
+          tipo_tramite,
+          asunto_tramite,
+          medio_recepcion,
+          fecha_recepcion,
+          fecha_recepcion,
+          nombre_peticionario,
+          tipo_peticionario,
+          direccion_peticionario,
+          telefono_peticionario,
+          celular_peticionario,
+          correo_peticionario
+        })
+        .then(response => {
+          alert("Tramite registrado exitosamente")
+          window.location.reload()
+        })
+        .catch(error => {
+          alert("No es posible agregar el trámite")
+        })
       id_tramite = res.data.id
       console.log(res)
     } catch (error) {
