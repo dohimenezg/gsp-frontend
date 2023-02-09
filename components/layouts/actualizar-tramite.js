@@ -67,7 +67,7 @@ class ActualizarTramite extends React.Component {
   fetchData = async () => {
     const { id_tramite } = this.props
     api
-      .get(`tramite/${id_tramite}`)
+      .get(`tramites/${id_tramite}`)
       .then(res => this.setState({ tramite: res.data }))
       .catch(err => console.error(err))
   }

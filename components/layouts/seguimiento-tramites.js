@@ -37,7 +37,7 @@ class SeguimientoTramites extends Component {
 
   getTramites = async filter => {
     try {
-      api.get(`tramites/${filter}`).then(res => {
+      api.get(`tramites/filtro/${filter}`).then(res => {
         this.setState({ tramites: res.data.tramites })
       })
     } catch (error) {
