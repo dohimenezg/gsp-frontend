@@ -33,9 +33,9 @@ export default function TramiteItemTitle({
   const value = daysBetween(today, start)
 
   const getColorscheme = () => {
-    if (value <= duracion / 3) {
+    if ((duracion - value) > 5) {
       return 'green'
-    } else if (value <= (duracion / 3) * 2) {
+    } else if ((duracion - value) <= 5 && (duracion - value) > 0) {
       return 'yellow'
     }
     return 'red'
